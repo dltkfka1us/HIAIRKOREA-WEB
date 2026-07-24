@@ -1,0 +1,169 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+@import "tailwindcss";
+
+:root {
+  --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --bg-toss: #f2f4f6;
+  --toss-card: #ffffff;
+
+  /* Toss Color System */
+  --toss-blue: #3182f6;
+  --toss-blue-hover: #1b64da;
+  --toss-blue-light: #e8f3ff;
+  
+  --toss-green: #208a46;
+  --toss-green-light: #e6f9ed;
+  
+  --toss-red: #e53e3e;
+  --toss-red-light: #fff0f0;
+  
+  --toss-purple: #7944ed;
+  --toss-purple-light: #f3edff;
+  
+  --toss-yellow: #d97706;
+  --toss-yellow-light: #fff8e6;
+
+  --toss-text-dark: #191f28;
+  --toss-text-gray: #4e5968;
+  --toss-text-muted: #8b95a1;
+  --toss-border: rgba(0, 0, 0, 0.05);
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-toss);
+  color: var(--toss-text-dark);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 토스 스타일 카드 */
+.toss-card {
+  background: var(--toss-card);
+  border: 1px solid var(--toss-border);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.toss-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+}
+
+/* 토스 아이콘 박스 */
+.toss-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: transform 0.2s ease;
+}
+
+/* 토스 KPI 그리드 바 */
+.toss-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  background: #f9fafb;
+  padding: 16px;
+  border-radius: 16px;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.toss-kpi-item {
+  text-align: center;
+}
+
+.toss-kpi-item .label {
+  font-size: 0.78rem;
+  color: var(--toss-text-muted);
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.toss-kpi-item .value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--toss-text-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 원형 게이지 차트 */
+.chart-gauge-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 16px;
+}
+
+.gauge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.liq-gauge-wrap {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.liq-progress-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.liq-ring-bg {
+  fill: none;
+  stroke: #f1f5f9;
+  stroke-width: 8;
+}
+
+.liq-ring-fill {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.liq-tank-circle {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.liq-val-circle {
+  position: relative;
+  z-index: 2;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--toss-text-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+.gauge-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--toss-text-gray);
+}
