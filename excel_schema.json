@@ -1,0 +1,321 @@
+{
+  "Config": {
+    "rowCount": 23,
+    "columns": [
+      "Key",
+      "Value",
+      "Description",
+      "Slogan",
+      "D-day",
+      "뉴스 검색 키워드",
+      "뉴스 강조 키워드"
+    ]
+  },
+  "MSDS_DB": {
+    "rowCount": 39,
+    "columns": [
+      "No",
+      "물질명",
+      "제조사",
+      "개정일",
+      "URL",
+      "다운로드수",
+      "생성일시",
+      "이미지URL",
+      "Unnamed: 8",
+      "신호어",
+      "H-CODE",
+      "P-CODE"
+    ]
+  },
+  "facilities": {
+    "rowCount": 0,
+    "columns": []
+  },
+  "Calendar": {
+    "rowCount": 19,
+    "columns": [
+      "ID",
+      "날짜",
+      "제목",
+      "색상",
+      "작성자",
+      "생성일",
+      "Unnamed: 6",
+      "이름",
+      "색상.1"
+    ]
+  },
+  "News": {
+    "rowCount": 29,
+    "columns": [
+      "Unnamed: 0",
+      "Unnamed: 1",
+      "Unnamed: 2",
+      "Unnamed: 3",
+      "Unnamed: 4",
+      "Unnamed: 5",
+      "Unnamed: 6"
+    ]
+  },
+  "Kosha": {
+    "rowCount": 70,
+    "columns": [
+      "20260520161409AFKZ7D",
+      "[5/18, 경북 칠곡군] 지게차 점검 중 지게차 마스트와 헤드가드 사이에 끼임",
+      "재해자가 지게차 점검 중 지게차의 마스트와 헤드가드 사이에 끼임",
+      "경북 칠곡군 | 끼임 | 2026. 05. 18(월) 00:30 | 사망 1명, 부상 0명",
+      "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01"
+    ]
+  },
+  "Edu_DB": {
+    "rowCount": 535,
+    "columns": [
+      "사번",
+      "근무지",
+      "부 서",
+      "이 름",
+      "Unnamed: 4"
+    ]
+  },
+  "TBM": {
+    "rowCount": 81,
+    "columns": [
+      "일시",
+      "구분",
+      "실시자",
+      "내용",
+      "특이사항",
+      "사진",
+      "명단",
+      "서명",
+      "안전공지",
+      "생산공지",
+      "Unnamed: 10"
+    ]
+  },
+  "TBM_DB": {
+    "rowCount": 37,
+    "columns": [
+      "위치",
+      "기타",
+      "김해",
+      "김해.1",
+      "김해.2",
+      "김해.3",
+      "김해.4",
+      "김해.5",
+      "김해.6",
+      "김해.7",
+      "김해.8",
+      "창녕",
+      "창녕.1",
+      "창녕.2",
+      "창녕.3",
+      "창녕.4",
+      "창녕.5",
+      "창녕.6",
+      "창녕.7",
+      "창녕.8"
+    ]
+  },
+  "Suggest": {
+    "rowCount": 0,
+    "columns": []
+  },
+  "Stress": {
+    "rowCount": 13,
+    "columns": [
+      "Timestamp",
+      "성별",
+      "부서",
+      "성명",
+      "총점",
+      "위험도",
+      "상세점수(JSON)",
+      "응답원본(JSON)"
+    ]
+  },
+  "Stress_DB": {
+    "rowCount": 24,
+    "columns": [
+      "ID",
+      "분류(Category)",
+      "문항(Question)",
+      "역채점 여부(Reverse)",
+      "사용 여부(Active)"
+    ]
+  },
+  "Legal_DB": {
+    "rowCount": 39,
+    "columns": [
+      "구 분",
+      "Unnamed: 1",
+      "대 상",
+      "선임일",
+      "선임자",
+      "Unnamed: 5",
+      "Unnamed: 6",
+      "Unnamed: 7",
+      "자격 종류",
+      "이전 교육일",
+      "기 한",
+      "다음 교육일",
+      "수 당",
+      "비 고",
+      "Unnamed: 14",
+      "구 분.1",
+      "기한",
+      "관련법",
+      "선임 자격"
+    ]
+  },
+  "Legal_Log": {
+    "rowCount": 3,
+    "columns": [
+      "2026-03-24 15:38:00",
+      "수동",
+      "0",
+      "0.1",
+      "1",
+      "1.1",
+      "Unnamed: 6",
+      "Unnamed: 7",
+      "Unnamed: 8",
+      "[]",
+      "Unnamed: 10",
+      "Unnamed: 11"
+    ]
+  },
+  "AI": {
+    "rowCount": 101,
+    "columns": [
+      "날짜",
+      "시간",
+      "사용자질문",
+      "AI답변",
+      "입력토큰",
+      "출력토큰",
+      "의견"
+    ]
+  },
+  "AI_DB": {
+    "rowCount": 49,
+    "columns": [
+      "예시 질문",
+      "Unnamed: 1",
+      "Unnamed: 2",
+      "Unnamed: 3",
+      "Unnamed: 4",
+      "Unnamed: 5",
+      "Unnamed: 6",
+      "Unnamed: 7",
+      "Unnamed: 8",
+      "Unnamed: 9",
+      "Unnamed: 10",
+      "Unnamed: 11",
+      "Unnamed: 12",
+      "Unnamed: 13"
+    ]
+  },
+  "Holiday": {
+    "rowCount": 132,
+    "columns": [
+      "날짜",
+      "설명"
+    ]
+  },
+  "QR": {
+    "rowCount": 4,
+    "columns": [
+      "-",
+      "생성일",
+      "제목",
+      "주소",
+      "타입",
+      "로고"
+    ]
+  },
+  "Risk_DB": {
+    "rowCount": 42,
+    "columns": [
+      "근무지",
+      "부서명",
+      "근무지.1",
+      "부서명.1"
+    ]
+  },
+  "Risk_Survey": {
+    "rowCount": 3,
+    "columns": [
+      "일시",
+      "국가",
+      "근무지",
+      "부서",
+      "성명",
+      "업무내용",
+      "아차사고",
+      "작업장위험",
+      "출장/외근",
+      "즉시개선",
+      "자유의견"
+    ]
+  },
+  "Risk_Data": {
+    "rowCount": 6,
+    "columns": [
+      "Workplace",
+      "Department",
+      "Timestamp",
+      "Info_Data",
+      "Assessment_Data",
+      "Plan_Data",
+      "Results_Data"
+    ]
+  },
+  "Risk_Dict": {
+    "rowCount": 109,
+    "columns": [
+      "★추락"
+    ]
+  },
+  "Risk_History": {
+    "rowCount": 44,
+    "columns": [
+      "Workplace",
+      "Department",
+      "Timestamp",
+      "Column",
+      "OldData",
+      "NewData",
+      "User"
+    ]
+  },
+  "Vendor": {
+    "rowCount": 2,
+    "columns": [
+      "No",
+      "주관부서",
+      "공사명",
+      "공사기간",
+      "업체명",
+      "담당자",
+      "첨부파일",
+      "상태",
+      "제출일"
+    ]
+  },
+  "Template": {
+    "rowCount": 1,
+    "columns": [
+      "No",
+      "서식명",
+      "분류",
+      "설명",
+      "첨부URL",
+      "작성자",
+      "등록일",
+      "다운횟수"
+    ]
+  }
+}

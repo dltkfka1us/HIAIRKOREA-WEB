@@ -1,0 +1,57 @@
+[
+  {
+    "key": "ADMIN_PASSWORD",
+    "value": "HI",
+    "description": "관리자(전체 권한) 비밀번호"
+  },
+  {
+    "key": "NOTICE_PASSWORD",
+    "value": "HAK",
+    "description": "공지사항 관리자 비밀번호"
+  },
+  {
+    "key": "CERT_ROOT_FOLDER_ID",
+    "value": "16mu6QKJaGxWQQPQr_KAjRK96NoJNMrm4",
+    "description": "서명 저장 폴더 ID"
+  },
+  {
+    "key": "TEMPLATE_ID",
+    "value": "1gqWyZbhOGjlNpmYuivawhiJIokOQ8WeyLlNhVUMbwZ0",
+    "description": "수료증 템플릿 파일 ID"
+  },
+  {
+    "key": "PDF_FOLDER_ID",
+    "value": "1GwjEOZnB2zZdH8-a5a0BaP73IPQAjeCh",
+    "description": "수료증 저장 폴더 ID"
+  },
+  {
+    "key": "AI_FOLDER_ID",
+    "value": "1zsLXvkTJ59uMwMRawB8HgYe-foPWVgUV",
+    "description": "AI 데이터 저장 폴더 ID"
+  },
+  {
+    "key": "ADMIN_SPREADSHEET_ID",
+    "value": "1zxk92FpJEW5k8hqbrFoAsr3i4zbXwsY37pmlScop6lY",
+    "description": "관리자 스프레드시트 ID"
+  },
+  {
+    "key": "BACKUP_FOLDER_ID",
+    "value": "1V3pPFV2AkhPiJ7-sG1UOA0xVCRW8Nc8h",
+    "description": "자동 백업본 저장 폴더 ID"
+  },
+  {
+    "key": "UPLOAD_FOLDER_ID",
+    "value": "1xEYMCwe5QlxqZIklrsEDOAsyFEqkoRwE",
+    "description": "업로드 파일 폴더 ID"
+  },
+  {
+    "key": "MSDS_FOLDER_ID",
+    "value": "1zBVRkerjFgdNhzCpYsnWOd-dl0WzBtbT",
+    "description": "MSDS 파일 폴더 ID"
+  },
+  {
+    "key": "MSDS_PASSWORD",
+    "value": "HI",
+    "description": "MSDS 관리자 비밀번호"
+  }
+]

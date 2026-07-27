@@ -120,3 +120,23 @@ ON CONFLICT DO NOTHING;
 INSERT INTO public.notices (title, content) VALUES
 ('금일 전 사업장 필수 TBM 안건 및 공지', '안전보호구 착용 상태 불량 시 즉각 작업 중지 조치 예정입니다.')
 ON CONFLICT DO NOTHING;
+
+-- 8. 정기안전교육 이수 기록 (edu_records)
+CREATE TABLE IF NOT EXISTS public.edu_records (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    employee_id UUID REFERENCES public.employees(id) ON DELETE CASCADE,
+    record_month VARCHAR(7) NOT NULL, -- e.g., '2026-07'
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()),
+    UNIQUE(employee_id, record_month)
+);
+
+ALTER TABLE public.edu_records ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public Read EduRecords" ON public.edu_records FOR SELECT USING (true);
+CREATE POLICY "Public Write EduRecords" ON public.edu_records FOR ALL USING (true);
+
+-- 샘플 데이터 추가 (2026년 7월분 이수자 일부 등록)
+INSERT INTO public.edu_records (employee_id, record_month) VALUES
+((SELECT id FROM public.employees WHERE emp_id = 'HK1001'), '2026-07'),
+((SELECT id FROM public.employees WHERE emp_id = 'HK1003'), '2026-07'),
+((SELECT id FROM public.employees WHERE emp_id = 'HK1004'), '2026-07')
+ON CONFLICT DO NOTHING;

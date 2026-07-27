@@ -1,0 +1,382 @@
+[
+  {
+    "location": "김해",
+    "title": "안전관리자",
+    "officer_name": "서민수",
+    "appointed_date": "2022.01.23",
+    "prev_edu_date": "2024-06-30 00:00:00",
+    "next_edu_date": "2026-06-30 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "안전관리자",
+    "officer_name": "이정환",
+    "appointed_date": "2016.07.31",
+    "prev_edu_date": "2025-03-03 00:00:00",
+    "next_edu_date": "2027-03-02 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "보건관리자",
+    "officer_name": "이민혜",
+    "appointed_date": "2024.02.19",
+    "prev_edu_date": "2024-06-15 00:00:00",
+    "next_edu_date": "2026-06-14 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "위험물안전관리자",
+    "officer_name": "서대석",
+    "appointed_date": "2023.08.23",
+    "prev_edu_date": "2025-11-06 00:00:00",
+    "next_edu_date": "2027-11-05 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "소방안전관리자(1급)",
+    "officer_name": "박수성",
+    "appointed_date": "2023.08.30",
+    "prev_edu_date": "2025-12-26 00:00:00",
+    "next_edu_date": "2027-12-25 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "소방안전관리자(보)",
+    "officer_name": "민성재",
+    "appointed_date": "2019.11.28",
+    "prev_edu_date": "2025-06-30 00:00:00",
+    "next_edu_date": "2027-06-29 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "소방안전관리자(보)",
+    "officer_name": "박병욱",
+    "appointed_date": "2024.09.12",
+    "prev_edu_date": "2025-06-30 00:00:00",
+    "next_edu_date": "2027-06-29 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "전기안전관리자",
+    "officer_name": "장형욱",
+    "appointed_date": "2025-11-05 00:00:00",
+    "prev_edu_date": "2023-06-03 00:00:00",
+    "next_edu_date": "2026-06-02 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "가스안전관리자",
+    "officer_name": "배종렬",
+    "appointed_date": "2023.01.02",
+    "prev_edu_date": "2023-03-21 00:00:00",
+    "next_edu_date": "2026-06-30 00:00:00",
+    "allowance": true,
+    "note": "냉동공조"
+  },
+  {
+    "location": "김해",
+    "title": "가스안전관리자",
+    "officer_name": "박홍재",
+    "appointed_date": "2023.10.31",
+    "prev_edu_date": "2024-04-30 00:00:00",
+    "next_edu_date": "2027-04-29 00:00:00",
+    "allowance": true,
+    "note": "액화/특고"
+  },
+  {
+    "location": "김해",
+    "title": "방사선안전관리자",
+    "officer_name": "황동환",
+    "appointed_date": "2020.11.11",
+    "prev_edu_date": "2025-11-13 00:00:00",
+    "next_edu_date": "2028-11-12 00:00:00",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "소방안전관리자(2급)",
+    "officer_name": "서대석",
+    "appointed_date": "2023.08.23",
+    "prev_edu_date": "2026-03-13 00:00:00",
+    "next_edu_date": "2028-03-13 00:00:00",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "전기안전관리자",
+    "officer_name": "서상렬",
+    "appointed_date": "2023.10.31",
+    "prev_edu_date": "2024-03-26 00:00:00",
+    "next_edu_date": "2027-03-25 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "소방안전관리자(2급)",
+    "officer_name": "허정배",
+    "appointed_date": "2013.01.23",
+    "prev_edu_date": "-",
+    "next_edu_date": "-",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "김해",
+    "title": "전기안전관리자",
+    "officer_name": "허정배",
+    "appointed_date": "2013.04.03",
+    "prev_edu_date": "-",
+    "next_edu_date": "-",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "안전관리자",
+    "officer_name": "이호성",
+    "appointed_date": "2023-03-14 00:00:00",
+    "prev_edu_date": "2025-05-21 00:00:00",
+    "next_edu_date": "2027-05-20 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "보건관리자",
+    "officer_name": "이성우",
+    "appointed_date": "2024-09-01 00:00:00",
+    "prev_edu_date": "-",
+    "next_edu_date": "-",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "위험물안전관리자",
+    "officer_name": "김정규",
+    "appointed_date": "2017-11-08 00:00:00",
+    "prev_edu_date": "2025-06-19 00:00:00",
+    "next_edu_date": "2027-06-18 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "소방안전관리자(2급)",
+    "officer_name": "이호성",
+    "appointed_date": "2024-12-02 00:00:00",
+    "prev_edu_date": "2025-01-14 00:00:00",
+    "next_edu_date": "2027-01-13 00:00:00",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "소방안전관리자(보)",
+    "officer_name": "김대기",
+    "appointed_date": "2018-08-17 00:00:00",
+    "prev_edu_date": "2025-01-24 00:00:00",
+    "next_edu_date": "2027-01-23 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "소방안전관리자(보)",
+    "officer_name": "정원일",
+    "appointed_date": "2023-02-03 00:00:00",
+    "prev_edu_date": "2025-06-19 00:00:00",
+    "next_edu_date": "2027-06-18 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "소방안전관리자(보)",
+    "officer_name": "김창범",
+    "appointed_date": "2015-03-11 00:00:00",
+    "prev_edu_date": "2025-09-30 00:00:00",
+    "next_edu_date": "2027-09-29 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "전기안전관리자",
+    "officer_name": "이창수",
+    "appointed_date": "2013-07-24 00:00:00",
+    "prev_edu_date": "2025-02-19 00:00:00",
+    "next_edu_date": "2028-02-18 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "냉동시설안전관리자",
+    "officer_name": "윤태원",
+    "appointed_date": "2024-06-10 00:00:00",
+    "prev_edu_date": "2024-11-08 00:00:00",
+    "next_edu_date": "2027-11-07 00:00:00",
+    "allowance": true,
+    "note": "냉동공조"
+  },
+  {
+    "location": "창녕",
+    "title": "가스안전관리자(액화/특고)",
+    "officer_name": "이호성",
+    "appointed_date": "2023-05-17 00:00:00",
+    "prev_edu_date": "2023-09-06 00:00:00",
+    "next_edu_date": "2026-09-05 00:00:00",
+    "allowance": false,
+    "note": "액화/특고"
+  },
+  {
+    "location": "창녕",
+    "title": "위험물안전관리자",
+    "officer_name": "이호성",
+    "appointed_date": "2025-04-11 00:00:00",
+    "prev_edu_date": "2025-05-28 00:00:00",
+    "next_edu_date": "2027-05-27 00:00:00",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "전기안전관리자",
+    "officer_name": "김창범",
+    "appointed_date": "2015-03-11 00:00:00",
+    "prev_edu_date": "2024-11-19 00:00:00",
+    "next_edu_date": "2027-11-18 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "소방안전관리자(2급)",
+    "officer_name": "김정규",
+    "appointed_date": "2023-02-03 00:00:00",
+    "prev_edu_date": "2025-03-19 00:00:00",
+    "next_edu_date": "2027-03-18 00:00:00",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "소방안전관리자(2급)",
+    "officer_name": "이창수",
+    "appointed_date": "2015-03-11 00:00:00",
+    "prev_edu_date": "2025-06-02 00:00:00",
+    "next_edu_date": "2027-06-01 00:00:00",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "창녕",
+    "title": "전기안전관리자",
+    "officer_name": "장경석",
+    "appointed_date": "2013-07-24 00:00:00",
+    "prev_edu_date": "-",
+    "next_edu_date": "-",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "부산",
+    "title": "소방안전관리자(2급)",
+    "officer_name": "성락준",
+    "appointed_date": "-",
+    "prev_edu_date": "-",
+    "next_edu_date": "-",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "부산",
+    "title": "전기안전관리자",
+    "officer_name": "전성수",
+    "appointed_date": "2025-11-05 00:00:00",
+    "prev_edu_date": "2023-06-10 00:00:00",
+    "next_edu_date": "2026-06-10 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "미음",
+    "title": "소방안전관리자(2급)",
+    "officer_name": "황동찬",
+    "appointed_date": "2022.04.11",
+    "prev_edu_date": "2026-02-10 00:00:00",
+    "next_edu_date": "2028-02-12 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "미음",
+    "title": "전기안전관리자",
+    "officer_name": "대행",
+    "appointed_date": "-",
+    "prev_edu_date": "-",
+    "next_edu_date": "-",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "대불",
+    "title": "소방안전관리자(2급)",
+    "officer_name": "최재훈",
+    "appointed_date": "2021.11.01",
+    "prev_edu_date": "2025-01-20 00:00:00",
+    "next_edu_date": "2027-01-19 00:00:00",
+    "allowance": true,
+    "note": null
+  },
+  {
+    "location": "대불",
+    "title": "위험물안전관리자",
+    "officer_name": "최재훈",
+    "appointed_date": "2022.12.05",
+    "prev_edu_date": "2024-06-03 00:00:00",
+    "next_edu_date": "2026-06-02 00:00:00",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "대불",
+    "title": "전기안전관리자",
+    "officer_name": "최재훈",
+    "appointed_date": "2021.11.05",
+    "prev_edu_date": "-",
+    "next_edu_date": "-",
+    "allowance": false,
+    "note": null
+  },
+  {
+    "location": "김해기숙사",
+    "title": "소방안전관리자(2급)",
+    "officer_name": "김경보",
+    "appointed_date": "2023.06.26",
+    "prev_edu_date": "2026-01-30 00:00:00",
+    "next_edu_date": "2028-01-29 00:00:00",
+    "allowance": true,
+    "note": null
+  }
+]
