@@ -83,3 +83,40 @@ INSERT INTO public.employees (emp_id, name, location, department, role) VALUES
 ('HK1003', 'ì´ì˜í¬', 'ë¶€ì‚°', 'í’ˆì§ˆê´€ë¦¬íŒ€', 'user'),
 ('HK1004', 'ë°•ë¯¼ìˆ˜', 'ì°½ë…•', 'ë¬¼ë¥˜íŒ€', 'user')
 ON CONFLICT (emp_id) DO NOTHING;
+
+-- 6. ¾ÈÀü°ü¸®ÀÚ ¼±ÀÓ ±â·Ï (safety_officers)
+CREATE TABLE IF NOT EXISTS public.safety_officers (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    employee_id UUID REFERENCES public.employees(id) ON DELETE CASCADE,
+    qualification_name VARCHAR(100) NOT NULL, -- '°¡½º¾ÈÀü°ü¸®ÀÚ', 'Àü±â¾ÈÀü°ü¸®ÀÚ', 'À§Çè¹°¾ÈÀü°ü¸®ÀÚ'
+    expiry_date DATE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
+);
+
+ALTER TABLE public.safety_officers ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public Read SafetyOfficers" ON public.safety_officers FOR SELECT USING (true);
+CREATE POLICY "Public Write SafetyOfficers" ON public.safety_officers FOR ALL USING (true);
+
+-- 7. Àü»ç °øÁö»çÇ× (notices)
+CREATE TABLE IF NOT EXISTS public.notices (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title VARCHAR(200) NOT NULL,
+    content TEXT NOT NULL,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
+);
+
+ALTER TABLE public.notices ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public Read Notices" ON public.notices FOR SELECT USING (true);
+CREATE POLICY "Public Write Notices" ON public.notices FOR ALL USING (true);
+
+-- »ùÇÃ µ¥ÀÌÅÍ Ãß°¡
+INSERT INTO public.safety_officers (employee_id, qualification_name, expiry_date) VALUES
+((SELECT id FROM public.employees WHERE emp_id = 'HK1004'), '°¡½º¾ÈÀü°ü¸®ÀÚ', '2026-09-05'),
+((SELECT id FROM public.employees WHERE emp_id = 'HK1002'), 'Àü±â¾ÈÀü°ü¸®ÀÚ', '2026-06-02'),
+((SELECT id FROM public.employees WHERE emp_id = 'HK1001'), 'À§Çè¹°¾ÈÀü°ü¸®ÀÚ', '2026-06-02')
+ON CONFLICT DO NOTHING;
+
+INSERT INTO public.notices (title, content) VALUES
+('±İÀÏ Àü »ç¾÷Àå ÇÊ¼ö TBM ¾È°Ç ¹× °øÁö', '¾ÈÀüº¸È£±¸ Âø¿ë »óÅÂ ºÒ·® ½Ã Áï°¢ ÀÛ¾÷ ÁßÁö Á¶Ä¡ ¿¹Á¤ÀÔ´Ï´Ù.')
+ON CONFLICT DO NOTHING;

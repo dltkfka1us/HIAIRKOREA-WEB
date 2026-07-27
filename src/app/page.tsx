@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getEduStats, getTbmStats, getLegalStats, getNotices } from '@/lib/actions/home.actions';
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState('HOME');
@@ -8,11 +9,61 @@ export default function HomePage() {
   const [modalTitle, setModalTitle] = useState('');
   const [modalContent, setModalContent] = useState('');
 
+  // 상태 데이터
+  const [eduData, setEduData] = useState<any>(null);
+  const [tbmData, setTbmData] = useState<any>(null);
+  const [legalData, setLegalData] = useState<any>(null);
+  const [notices, setNotices] = useState<any[]>([]);
+  const [weatherData, setWeatherData] = useState<any[]>([]);
+  const [newsData, setNewsData] = useState<any>({ kosha: [], safety: [] });
+  const [isLoading, setIsLoading] = useState(true);
+
+  // 데이터 패칭
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const [edu, tbm, legal, noticeList, weatherRes, newsRes] = await Promise.all([
+          getEduStats('2026-07'),
+          getTbmStats('2026-07-27'),
+          getLegalStats(2026),
+          getNotices(),
+          fetch('/api/external?type=weather'),
+          fetch('/api/external?type=news')
+        ]);
+
+        setEduData(edu);
+        setTbmData(tbm);
+        setLegalData(legal);
+        setNotices(noticeList);
+        
+        if (weatherRes.ok) setWeatherData(await weatherRes.json());
+        if (newsRes.ok) setNewsData(await newsRes.json());
+
+      } catch (err) {
+        console.error('Failed to load dashboard data', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
   const openModal = (title: string, content: string) => {
     setModalTitle(title);
     setModalContent(content);
     setActiveModal('notice');
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#f4f6f9] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-12 h-12 border-4 border-[#1e88e5] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-sm font-bold text-[#64748b]">대시보드 데이터를 불러오는 중입니다...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f4f6f9] p-4 md:p-8 text-[#2c3e50] font-sans relative">
@@ -21,7 +72,6 @@ export default function HomePage() {
         {/* Row 0: Original Header (Branding & Slogan & Non-Disaster Counter) */}
         <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-2 gap-4">
           <div className="flex items-center gap-3">
-            {/* Logo */}
             <div className="w-10 h-10 bg-[#1e88e5] rounded-xl flex items-center justify-center text-white shadow-md font-black text-xl">
               h
             </div>
@@ -36,7 +86,6 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            {/* 무재해 카운터 (기존 디자인 100% 동일) */}
             <div className="flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-xl border border-gray-200 shadow-sm">
               <span className="text-xs font-bold text-[#64748b]">무재해</span>
               <div className="flex gap-1 font-mono text-sm font-extrabold">
@@ -48,7 +97,6 @@ export default function HomePage() {
               <span className="text-xs font-bold text-[#1e293b]">일</span>
             </div>
 
-            {/* 상단 아이콘 메뉴 */}
             <div className="flex items-center gap-2 text-[#64748b] text-sm bg-white p-1.5 rounded-xl border border-gray-200 shadow-sm">
               <button title="시약 관리" className="p-1.5 hover:text-[#1e88e5] hover:bg-gray-100 rounded-lg transition"><i className="fa-solid fa-flask"></i></button>
               <button title="일정 관리" className="p-1.5 hover:text-[#1e88e5] hover:bg-gray-100 rounded-lg transition"><i className="fa-solid fa-calendar-days"></i></button>
@@ -100,33 +148,27 @@ export default function HomePage() {
               <span className="text-xs text-[#94a3b8] font-medium">(금월 기준)</span>
             </div>
 
-            {/* KPI 숫자 요약 */}
             <div className="grid grid-cols-4 gap-2 bg-slate-50 p-3 rounded-2xl my-4 text-center">
               <div>
                 <div className="text-[11px] font-bold text-[#64748b]">대상</div>
-                <div className="text-base font-black text-[#1e293b]">535<small className="text-xs font-normal">명</small></div>
+                <div className="text-base font-black text-[#1e293b]">{eduData?.total.target}<small className="text-xs font-normal">명</small></div>
               </div>
               <div>
                 <div className="text-[11px] font-bold text-[#64748b]">이수</div>
-                <div className="text-base font-black text-emerald-600">464<small className="text-xs font-normal">명</small></div>
+                <div className="text-base font-black text-emerald-600">{eduData?.total.done}<small className="text-xs font-normal">명</small></div>
               </div>
               <div>
                 <div className="text-[11px] font-bold text-[#64748b]">미이수</div>
-                <div className="text-base font-black text-rose-500">71<small className="text-xs font-normal">명</small></div>
+                <div className="text-base font-black text-rose-500">{eduData?.total.undone}<small className="text-xs font-normal">명</small></div>
               </div>
               <div>
                 <div className="text-[11px] font-bold text-[#64748b]">이수율</div>
-                <div className="text-base font-black text-[#1e88e5]">87<small className="text-xs font-normal">%</small></div>
+                <div className="text-base font-black text-[#1e88e5]">{eduData?.total.rate}<small className="text-xs font-normal">%</small></div>
               </div>
             </div>
 
-            {/* 사업장별 게이지 차트 (기존 100% 동일) */}
             <div className="flex justify-around items-center pt-1 text-center">
-              {[
-                { loc: '김해', pct: 81 },
-                { loc: '부산', pct: 95 },
-                { loc: '창녕', pct: 82 },
-              ].map((item) => (
+              {eduData?.locations.map((item: any) => (
                 <div key={item.loc} className="flex flex-col items-center gap-1.5">
                   <div className="relative w-16 h-16 flex items-center justify-center">
                     <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
@@ -162,39 +204,34 @@ export default function HomePage() {
                 <span className="text-xs text-[#94a3b8] font-medium">(금일 기준)</span>
               </div>
               <button 
-                onClick={() => openModal('공지사항 설정', '금일 전 사업장 필수 TBM 안건 및 공지 내용입니다.')}
+                onClick={() => openModal(notices[0]?.title || '공지사항', notices[0]?.content || '내용이 없습니다.')}
                 className="px-2.5 py-1 bg-purple-50 text-purple-600 hover:bg-purple-100 text-xs font-bold rounded-lg transition border border-purple-200/50 flex items-center gap-1"
               >
                 <i className="fa-solid fa-bullhorn text-xs"></i> 공지사항
               </button>
             </div>
 
-            {/* KPI 숫자 요약 */}
             <div className="grid grid-cols-4 gap-2 bg-slate-50 p-3 rounded-2xl my-4 text-center">
               <div>
                 <div className="text-[11px] font-bold text-[#64748b]">대상</div>
-                <div className="text-base font-black text-[#1e293b]">18<small className="text-xs font-normal">팀</small></div>
+                <div className="text-base font-black text-[#1e293b]">{tbmData?.total.target}<small className="text-xs font-normal">팀</small></div>
               </div>
               <div>
                 <div className="text-[11px] font-bold text-[#64748b]">완료</div>
-                <div className="text-base font-black text-emerald-600">0<small className="text-xs font-normal">팀</small></div>
+                <div className="text-base font-black text-emerald-600">{tbmData?.total.done}<small className="text-xs font-normal">팀</small></div>
               </div>
               <div>
                 <div className="text-[11px] font-bold text-[#64748b]">미실시</div>
-                <div className="text-base font-black text-rose-500">18<small className="text-xs font-normal">팀</small></div>
+                <div className="text-base font-black text-rose-500">{tbmData?.total.undone}<small className="text-xs font-normal">팀</small></div>
               </div>
               <div>
                 <div className="text-[11px] font-bold text-[#64748b]">실시율</div>
-                <div className="text-base font-black text-purple-600">0<small className="text-xs font-normal">%</small></div>
+                <div className="text-base font-black text-purple-600">{tbmData?.total.rate}<small className="text-xs font-normal">%</small></div>
               </div>
             </div>
 
-            {/* 사업장별 게이지 차트 */}
             <div className="flex justify-around items-center pt-1 text-center">
-              {[
-                { loc: '김해', pct: 0 },
-                { loc: '창녕', pct: 0 },
-              ].map((item) => (
+              {tbmData?.locations.map((item: any) => (
                 <div key={item.loc} className="flex flex-col items-center gap-1.5">
                   <div className="relative w-16 h-16 flex items-center justify-center">
                     <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
@@ -219,7 +256,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* 3. 법정의무교육 현황 (사람 아이콘 + 자격 D-Day 리스트 100% 동일) */}
+          {/* 3. 법정의무교육 현황 (사람 아이콘 + 자격 D-Day 리스트) */}
           <div className="bg-white rounded-3xl p-6 border border-gray-200/80 shadow-sm flex flex-col justify-between hover:shadow-md transition space-y-3">
             <div>
               <div className="flex items-center gap-3 pb-3 border-b border-gray-100">
@@ -233,71 +270,42 @@ export default function HomePage() {
               <div className="grid grid-cols-4 gap-2 bg-slate-50 p-3 rounded-2xl my-3 text-center">
                 <div>
                   <div className="text-[11px] font-bold text-[#64748b]">대상</div>
-                  <div className="text-base font-black text-[#1e293b]">10<small className="text-xs font-normal">명</small></div>
+                  <div className="text-base font-black text-[#1e293b]">{legalData?.total.target}<small className="text-xs font-normal">명</small></div>
                 </div>
                 <div>
                   <div className="text-[11px] font-bold text-[#64748b]">이수</div>
-                  <div className="text-base font-black text-emerald-600">3<small className="text-xs font-normal">명</small></div>
+                  <div className="text-base font-black text-emerald-600">{legalData?.total.done}<small className="text-xs font-normal">명</small></div>
                 </div>
                 <div>
                   <div className="text-[11px] font-bold text-[#64748b]">미이수</div>
-                  <div className="text-base font-black text-rose-500">7<small className="text-xs font-normal">명</small></div>
+                  <div className="text-base font-black text-rose-500">{legalData?.total.undone}<small className="text-xs font-normal">명</small></div>
                 </div>
                 <div>
                   <div className="text-[11px] font-bold text-[#64748b]">이수율</div>
-                  <div className="text-base font-black text-[#1e88e5]">30<small className="text-xs font-normal">%</small></div>
+                  <div className="text-base font-black text-[#1e88e5]">{legalData?.total.rate}<small className="text-xs font-normal">%</small></div>
                 </div>
               </div>
 
-              {/* 사람 이모티콘 상태 (3명 이수 🔵, 7명 미이수 🔴) */}
               <div className="flex justify-center items-center gap-1.5 py-1 text-sm">
-                <i className="fa-solid fa-user-check text-blue-500"></i>
-                <i className="fa-solid fa-user-check text-blue-500"></i>
-                <i className="fa-solid fa-user-check text-blue-500"></i>
-                <i className="fa-solid fa-user-xmark text-rose-500"></i>
-                <i className="fa-solid fa-user-xmark text-rose-500"></i>
-                <i className="fa-solid fa-user-xmark text-rose-500"></i>
-                <i className="fa-solid fa-user-xmark text-rose-500"></i>
-                <i className="fa-solid fa-user-xmark text-rose-500"></i>
-                <i className="fa-solid fa-user-xmark text-rose-500"></i>
-                <i className="fa-solid fa-user text-gray-300"></i>
+                {legalData?.avatars.map((isDone: boolean, idx: number) => (
+                  <i key={idx} className={`fa-solid ${isDone ? 'fa-user-check text-blue-500' : 'fa-user-xmark text-rose-500'}`}></i>
+                ))}
               </div>
             </div>
 
-            {/* 선임 관리자 자격 만료 D-Day 알림 스크롤 리스트 */}
             <div className="space-y-1.5 bg-slate-50 p-2.5 rounded-2xl border border-gray-100 max-h-32 overflow-y-auto">
-              <div className="flex items-center justify-between text-xs p-1.5 bg-white rounded-xl border border-gray-100">
-                <div className="flex items-center gap-2">
-                  <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded font-bold text-[10px]">창녕</span>
-                  <span className="font-bold text-[#334155] text-xs">가스안전관리자(...</span>
+              {legalData?.officers.map((officer: any, idx: number) => (
+                <div key={idx} className="flex items-center justify-between text-xs p-1.5 bg-white rounded-xl border border-gray-100">
+                  <div className="flex items-center gap-2">
+                    <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded font-bold text-[10px]">{officer.loc}</span>
+                    <span className="font-bold text-[#334155] text-xs">{officer.title}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className={`${officer.isDanger ? 'text-rose-500' : 'text-orange-500'} font-extrabold text-[11px]`}>{officer.dday}</span>
+                    <span className={`text-[10px] border ${officer.isDanger ? 'border-rose-300 text-rose-600' : 'border-orange-300 text-orange-600'} px-1.5 py-0.5 rounded font-mono`}>{officer.date}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-orange-500 font-extrabold text-[11px]">41일 남음</span>
-                  <span className="text-[10px] border border-orange-300 text-orange-600 px-1.5 py-0.5 rounded font-mono">2026-09-05</span>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between text-xs p-1.5 bg-white rounded-xl border border-gray-100">
-                <div className="flex items-center gap-2">
-                  <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded font-bold text-[10px]">김해</span>
-                  <span className="font-bold text-[#334155] text-xs">전기안전관리자</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-rose-500 font-extrabold text-[11px]">54일 지난</span>
-                  <span className="text-[10px] border border-rose-300 text-rose-600 px-1.5 py-0.5 rounded font-mono">2026-06-02</span>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between text-xs p-1.5 bg-white rounded-xl border border-gray-100">
-                <div className="flex items-center gap-2">
-                  <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded font-bold text-[10px]">대물</span>
-                  <span className="font-bold text-[#334155] text-xs">위험물안전관리자</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-rose-500 font-extrabold text-[11px]">54일 지난</span>
-                  <span className="text-[10px] border border-rose-300 text-rose-600 px-1.5 py-0.5 rounded font-mono">2026-06-02</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -324,14 +332,7 @@ export default function HomePage() {
             </div>
 
             <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
-              {[
-                { loc: '[대구 수성구]', text: '창호를 해체작업 중 단부로 떨어짐', tag: '사망 1명' },
-                { loc: '[경기 평택시]', text: '가공설비 정비 작업 중 끼임', tag: '사망 1명' },
-                { loc: '[충남 보령시]', text: '사다리에 올라가 전국기 설치 준비 작업 중 떨어짐', tag: '사망 1명' },
-                { loc: '[충남 서산시]', text: '태양광 설비 전선 교체작업 중 감전', tag: '사망 1명' },
-                { loc: '[경남 사천시]', text: '제어판넬 내 전선 연결작업 중 감전', tag: '사망 1명' },
-                { loc: '[충남 당진시]', text: '적재기 조정 작업 중 끼임', tag: '사망 1명' },
-              ].map((item, idx) => (
+              {newsData.kosha.map((item: any, idx: number) => (
                 <div 
                   key={idx}
                   onClick={() => openModal('사고 속보 상세', `${item.loc} ${item.text}`)}
@@ -358,14 +359,7 @@ export default function HomePage() {
             </div>
 
             <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
-              {[
-                { title: '철강 3사, 지난해 모두 사망사고...안전지표 개선도 \'숙제\'', date: '07-27' },
-                { title: '권은비, 필라테스 추락 사고 당했다..."구멍으로 빠져" [스타이슈]', date: '07-27' },
-                { title: '경산시, 재해 매뉴얼 개정...예방부터 사고 수습까지 정비', date: '07-27' },
-                { title: '동래구, 안전 실천 결의대회 개최..."중대재해 없는 안전한 일터 ...', date: '07-27' },
-                { title: 'HD현대중공업 군산조선소 끼임 사고로 사망자 1명 발생', date: '07-27' },
-                { title: '서울시설공단, 산업재해 예방 유공 고용노동부 장관표창 수상', date: '07-27' },
-              ].map((news, idx) => (
+              {newsData.safety.map((news: any, idx: number) => (
                 <div 
                   key={idx}
                   onClick={() => openModal('안전 뉴스 상세', news.title)}
@@ -378,7 +372,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* 3. 사업장 날씨 정보 (기존 100% 동일) */}
+          {/* 3. 사업장 날씨 정보 */}
           <div className="bg-white rounded-3xl p-6 border border-gray-200/80 shadow-sm flex flex-col hover:shadow-md transition">
             <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-3">
               <div className="flex items-center gap-3">
@@ -387,45 +381,22 @@ export default function HomePage() {
                 </div>
                 <h3 className="font-extrabold text-[#1e293b] text-base">날씨 정보</h3>
               </div>
-              <span className="text-[11px] font-bold text-[#94a3b8]">(08:50 기준)</span>
+              <span className="text-[11px] font-bold text-[#94a3b8]">(실시간 기준)</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 text-center">
-              {/* 김해 */}
-              <div className="p-2.5 bg-slate-50 rounded-2xl border border-gray-100 flex flex-col items-center justify-between">
-                <span className="text-xs font-extrabold text-[#1e293b]">김해</span>
-                <span className="text-[10px] text-blue-600 font-bold">어제기준 ▼ 1.5°</span>
-                <i className="fa-solid fa-sun text-amber-500 text-2xl my-1.5"></i>
-                <span className="text-base font-black text-[#1e293b]">28.9°C</span>
-                <span className="text-[10px] text-[#64748b] font-bold">💧 73%</span>
-                <span className="text-[10px] text-[#94a3b8]">체감온도 30.4°C</span>
-                <span className="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1 py-0.5 rounded mt-1">기상특보 없음</span>
-                <span className="text-[9px] text-[#94a3b8] mt-1">내일 ☁️ 25° / 33°</span>
-              </div>
-
-              {/* 부산 */}
-              <div className="p-2.5 bg-slate-50 rounded-2xl border border-gray-100 flex flex-col items-center justify-between">
-                <span className="text-xs font-extrabold text-[#1e293b]">부산</span>
-                <span className="text-[10px] text-blue-600 font-bold">어제기준 ▼ 0.6°</span>
-                <i className="fa-solid fa-cloud text-slate-400 text-2xl my-1.5"></i>
-                <span className="text-base font-black text-[#1e293b]">30.8°C</span>
-                <span className="text-[10px] text-[#64748b] font-bold">💧 72%</span>
-                <span className="text-[10px] text-[#94a3b8]">체감온도 32.3°C</span>
-                <span className="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1 py-0.5 rounded mt-1">기상특보 없음</span>
-                <span className="text-[9px] text-[#94a3b8] mt-1">내일 ☁️ 26° / 33°</span>
-              </div>
-
-              {/* 창녕 */}
-              <div className="p-2.5 bg-slate-50 rounded-2xl border border-gray-100 flex flex-col items-center justify-between">
-                <span className="text-xs font-extrabold text-[#1e293b]">창녕</span>
-                <span className="text-[10px] text-blue-600 font-bold">어제기준 ▼ 1.5°</span>
-                <i className="fa-solid fa-sun text-amber-500 text-2xl my-1.5"></i>
-                <span className="text-base font-black text-[#1e293b]">30.2°C</span>
-                <span className="text-[10px] text-[#64748b] font-bold">💧 73%</span>
-                <span className="text-[10px] text-[#94a3b8]">체감온도 31.8°C</span>
-                <span className="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1 py-0.5 rounded mt-1">기상특보 없음</span>
-                <span className="text-[9px] text-[#94a3b8] mt-1">내일 ☁️ 25° / 35°</span>
-              </div>
+              {weatherData.map((weather: any) => (
+                <div key={weather.loc} className="p-2.5 bg-slate-50 rounded-2xl border border-gray-100 flex flex-col items-center justify-between">
+                  <span className="text-xs font-extrabold text-[#1e293b]">{weather.loc}</span>
+                  <span className="text-[10px] text-blue-600 font-bold">어제기준 {weather.diff}</span>
+                  <i className={`fa-solid ${weather.icon} ${weather.color} text-2xl my-1.5`}></i>
+                  <span className="text-base font-black text-[#1e293b]">{weather.temp}°C</span>
+                  <span className="text-[10px] text-[#64748b] font-bold">💧 {weather.hum}%</span>
+                  <span className="text-[10px] text-[#94a3b8]">체감온도 {weather.feel}°C</span>
+                  <span className="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1 py-0.5 rounded mt-1">{weather.alert}</span>
+                  <span className="text-[9px] text-[#94a3b8] mt-1">내일 ☁️ {weather.tomorrow}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -433,7 +404,6 @@ export default function HomePage() {
 
       </div>
 
-      {/* 우측 하단 둥둥이 AI 챗봇 캐릭터 위젯 (기존 100% 동일) */}
       <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2">
         <div className="bg-white px-3 py-1.5 rounded-2xl shadow-lg border border-gray-200 text-xs font-extrabold text-[#1e293b] animate-bounce">
           무엇이든 물어보세요
@@ -446,7 +416,6 @@ export default function HomePage() {
         </button>
       </div>
 
-      {/* 모달 팝업 */}
       {activeModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in duration-200">
