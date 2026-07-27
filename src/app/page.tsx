@@ -1,359 +1,301 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
-import { DashboardStat, LocationType } from '@/lib/types';
+import { useState } from 'react';
 
 export default function HomePage() {
-  const [stats, setStats] = useState<DashboardStat[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedLocation, setSelectedLocation] = useState<LocationType>('전체');
+  const [activeTab, setActiveTab] = useState('HOME');
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [modalTitle, setModalTitle] = useState('');
   const [modalContent, setModalContent] = useState('');
 
-  useEffect(() => {
-    async function fetchStats() {
-      const { data, error } = await supabase.from('dashboard_stats').select('*');
-      if (data && !error) {
-        setStats(data);
-      }
-      setLoading(false);
-    }
-    fetchStats();
-  }, []);
-
-  // 필터링 적용된 카테고리별 통계 계산
-  const getCategoryStats = (category: string) => {
-    let items = stats.filter((s) => s.category === category);
-    if (selectedLocation !== '전체') {
-      items = items.filter((s) => s.location === selectedLocation);
-    }
-    const target = items.reduce((acc, curr) => acc + curr.target_count, 0);
-    const done = items.reduce((acc, curr) => acc + curr.done_count, 0);
-    const undone = items.reduce((acc, curr) => acc + curr.undone_count, 0);
-    const rate = target > 0 ? Math.round((done / target) * 100) : 0;
-    return { target, done, undone, rate, items: stats.filter((s) => s.category === category) };
-  };
-
-  const edu = getCategoryStats('edu');
-  const tbm = getCategoryStats('tbm');
-  const legal = getCategoryStats('legal');
-
-  // SVG 링 offset 계산 (r=44 -> circumference ≈ 276.46)
-  const getStrokeOffset = (rate: number) => {
-    const circumference = 276.46;
-    return circumference - (rate / 100) * circumference;
-  };
-
-  const openNotice = (title: string, content: string) => {
+  const openModal = (title: string, content: string) => {
     setModalTitle(title);
     setModalContent(content);
     setActiveModal('notice');
   };
 
   return (
-    <div className="min-h-screen bg-[#f2f4f6] p-4 md:p-10 text-[#191f28] relative">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-[#f4f6f9] p-4 md:p-8 text-[#2c3e50] font-sans relative">
+      <div className="max-w-[1400px] mx-auto space-y-5">
         
-        {/* 상단 글로벌 헤더 & 무재해 전광판 */}
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center pb-2 gap-4">
-          <div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#3182f6] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/25">
-                <i className="fa-solid fa-shield-halved text-xl"></i>
-              </div>
-              <div>
-                <h1 className="text-2xl md:text-3xl font-extrabold text-[#191f28] tracking-tight flex items-center gap-2">
-                  HIAIRKOREA 안전보건 대시보드
-                </h1>
-                <p className="text-[#6b7684] text-xs md:text-sm font-medium mt-0.5">
-                  작업 전 TBM은 사고를 막는 가장 확실한 예방입니다.
-                </p>
-              </div>
+        {/* Row 0: Original Header (Branding & Slogan & Non-Disaster Counter) */}
+        <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-2 gap-4">
+          <div className="flex items-center gap-3">
+            {/* Logo */}
+            <div className="w-10 h-10 bg-[#1e88e5] rounded-xl flex items-center justify-center text-white shadow-md font-black text-xl">
+              h
+            </div>
+            <div>
+              <h1 className="text-xl md:text-2xl font-black text-[#1565c0] tracking-tight flex items-center gap-2">
+                Safety and Health Management System
+              </h1>
+              <p className="text-[#64748b] text-xs font-semibold mt-0.5">
+                쾌적한 작업 환경은 우리 모두가 함께 만듭니다.
+              </p>
             </div>
           </div>
-          
+
           <div className="flex flex-wrap items-center gap-3">
-            {/* 무재해 전광판 */}
-            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl border border-black/5 shadow-sm">
-              <span className="text-xs font-bold text-[#6b7684]">무재해</span>
+            {/* 무재해 카운터 (기존 디자인 100% 동일) */}
+            <div className="flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-xl border border-gray-200 shadow-sm">
+              <span className="text-xs font-bold text-[#64748b]">무재해</span>
               <div className="flex gap-1 font-mono text-sm font-extrabold">
-                <span className="bg-[#191f28] text-white px-2 py-0.5 rounded-md">1</span>
-                <span className="bg-[#191f28] text-white px-2 py-0.5 rounded-md">9</span>
-                <span className="bg-[#191f28] text-white px-2 py-0.5 rounded-md">7</span>
-                <span className="bg-[#191f28] text-white px-2 py-0.5 rounded-md">4</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">1</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">9</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">7</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">4</span>
               </div>
-              <span className="text-xs font-bold text-[#191f28]">일</span>
+              <span className="text-xs font-bold text-[#1e293b]">일</span>
             </div>
 
-            <span className="px-3.5 py-2 bg-[#e6f9ed] text-[#208a46] font-bold rounded-2xl text-xs flex items-center gap-2 border border-[#208a46]/10">
-              <span className="w-2.5 h-2.5 bg-[#208a46] rounded-full animate-ping"></span>
-              Supabase 연동
-            </span>
-
-            <button 
-              onClick={() => openNotice('관리자 인증', '관리자 전용 로그인 페이지로 이동합니다.')}
-              className="px-4 py-2 bg-[#3182f6] hover:bg-[#1b64da] text-white rounded-2xl text-xs font-bold transition-all shadow-md shadow-blue-500/15 active:scale-95 flex items-center gap-1.5"
-            >
-              <i className="fa-solid fa-lock text-xs"></i>
-              관리자 로그인
-            </button>
+            {/* 상단 아이콘 메뉴 */}
+            <div className="flex items-center gap-2 text-[#64748b] text-sm bg-white p-1.5 rounded-xl border border-gray-200 shadow-sm">
+              <button title="시약 관리" className="p-1.5 hover:text-[#1e88e5] hover:bg-gray-100 rounded-lg transition"><i className="fa-solid fa-flask"></i></button>
+              <button title="일정 관리" className="p-1.5 hover:text-[#1e88e5] hover:bg-gray-100 rounded-lg transition"><i className="fa-solid fa-calendar-days"></i></button>
+              <button title="즐겨찾기" className="p-1.5 hover:text-[#1e88e5] hover:bg-gray-100 rounded-lg transition"><i className="fa-solid fa-bookmark"></i></button>
+              <button onClick={() => openModal('관리자 로그인', '관리자 전용 인증 화면입니다.')} title="관리자 로그인" className="p-1.5 hover:text-[#1e88e5] hover:bg-gray-100 rounded-lg transition"><i className="fa-solid fa-key"></i></button>
+            </div>
           </div>
         </header>
 
-        {/* 상단 탭 네비게이션 (기존 GAS 메뉴 이주) */}
-        <nav className="bg-white p-2 rounded-2xl border border-black/5 shadow-sm flex items-center gap-1 overflow-x-auto">
-          <button className="px-4 py-2 bg-[#3182f6] text-white font-extrabold text-xs rounded-xl flex items-center gap-1.5 shrink-0 shadow-sm">
-            <i className="fa-solid fa-house"></i> HOME
-          </button>
-          <button className="px-4 py-2 hover:bg-[#f2f4f6] text-[#6b7684] hover:text-[#191f28] font-bold text-xs rounded-xl flex items-center gap-1.5 shrink-0 transition">
-            <i className="fa-solid fa-graduation-cap text-green-600"></i> 정기안전교육
-          </button>
-          <button className="px-4 py-2 hover:bg-[#f2f4f6] text-[#6b7684] hover:text-[#191f28] font-bold text-xs rounded-xl flex items-center gap-1.5 shrink-0 transition">
-            <i className="fa-solid fa-comments text-purple-600"></i> TBM
-          </button>
-          <button className="px-4 py-2 hover:bg-[#f2f4f6] text-[#6b7684] hover:text-[#191f28] font-bold text-xs rounded-xl flex items-center gap-1.5 shrink-0 transition">
-            <i className="fa-solid fa-triangle-exclamation text-amber-500"></i> 위험성평가
-          </button>
-          <button className="px-4 py-2 hover:bg-[#f2f4f6] text-[#6b7684] hover:text-[#191f28] font-bold text-xs rounded-xl flex items-center gap-1.5 shrink-0 transition">
-            <i className="fa-solid fa-gavel text-blue-600"></i> 법정의무교육
-          </button>
-          <button className="px-4 py-2 hover:bg-[#f2f4f6] text-[#6b7684] hover:text-[#191f28] font-bold text-xs rounded-xl flex items-center gap-1.5 shrink-0 transition">
-            <i className="fa-solid fa-heart-pulse text-red-500"></i> 직무스트레스
-          </button>
-          <button className="px-4 py-2 hover:bg-[#f2f4f6] text-[#6b7684] hover:text-[#191f28] font-bold text-xs rounded-xl flex items-center gap-1.5 shrink-0 transition">
-            <i className="fa-solid fa-robot text-teal-600"></i> AI챗봇
-          </button>
-          <button className="px-4 py-2 hover:bg-[#f2f4f6] text-[#6b7684] hover:text-[#191f28] font-bold text-xs rounded-xl flex items-center gap-1.5 shrink-0 transition">
-            <i className="fa-solid fa-building-user text-indigo-600"></i> 외부업체
-          </button>
-          <button className="px-4 py-2 hover:bg-[#f2f4f6] text-[#6b7684] hover:text-[#191f28] font-bold text-xs rounded-xl flex items-center gap-1.5 shrink-0 transition">
-            <i className="fa-solid fa-folder-open text-gray-600"></i> 서식자료
-          </button>
+        {/* Row 0.5: Navigation Bar (Original Pill Active Tabs) */}
+        <nav className="bg-white p-1.5 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-1 overflow-x-auto">
+          {[
+            { id: 'HOME', label: 'HOME', icon: 'fa-house' },
+            { id: 'EDU', label: '정기안전교육', icon: 'fa-graduation-cap' },
+            { id: 'TBM', label: 'TBM', icon: 'fa-comments' },
+            { id: 'RISK', label: '위험성평가', icon: 'fa-triangle-exclamation' },
+            { id: 'LEGAL', label: '법정의무교육', icon: 'fa-gavel' },
+            { id: 'STRESS', label: '직무스트레스', icon: 'fa-heart-pulse' },
+            { id: 'AI', label: 'AI챗봇', icon: 'fa-robot' },
+            { id: 'FACILITY', label: '시설물', icon: 'fa-building' },
+            { id: 'EXTERNAL', label: '외부업체', icon: 'fa-handshake' },
+            { id: 'DOCS', label: '서식자료', icon: 'fa-folder-open' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 ${
+                activeTab === tab.id
+                  ? 'bg-[#1e88e5] text-white shadow-md font-extrabold'
+                  : 'text-[#64748b] hover:bg-gray-100 hover:text-[#1e293b]'
+              }`}
+            >
+              <i className={`fa-solid ${tab.icon}`}></i>
+              {tab.label}
+            </button>
+          ))}
         </nav>
 
-        {/* 사업장 셀렉터 필터바 (Toss Segmented Control) */}
-        <div className="bg-white p-2 rounded-2xl border border-black/5 shadow-sm flex items-center justify-between">
-          <div className="flex items-center gap-1 bg-[#f2f4f6] p-1.5 rounded-xl w-full sm:w-auto">
-            {(['전체', '김해', '부산', '창녕'] as LocationType[]).map((loc) => (
-              <button
-                key={loc}
-                onClick={() => setSelectedLocation(loc)}
-                className={`px-5 py-2 rounded-lg text-xs font-bold transition-all duration-200 flex-1 sm:flex-initial ${
-                  selectedLocation === loc
-                    ? 'bg-white text-[#3182f6] shadow-sm font-extrabold'
-                    : 'text-[#6b7684] hover:text-[#191f28]'
-                }`}
-              >
-                {loc === '전체' ? '🏢 전체 사업장' : `📍 ${loc} 사업장`}
-              </button>
-            ))}
-          </div>
-
-          <span className="hidden sm:block text-xs font-semibold text-[#8b95a1] pr-3">
-            선택된 사업장: <strong className="text-[#3182f6] font-extrabold">{selectedLocation}</strong>
-          </span>
-        </div>
-
-        {/* Row 1: KPI Dashboard Grid (Toss UI Theme) */}
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Row 1: 3 Main Cards (Education, TBM, Legal) */}
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           
           {/* 1. 정기안전교육 현황 */}
-          <div className="toss-card">
-            <div className="flex items-center gap-3.5 pb-4 border-b border-[#f2f4f6]">
-              <div className="toss-icon-box bg-[#e6f9ed] text-[#208a46]">
+          <div className="bg-white rounded-3xl p-6 border border-gray-200/80 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+            <div className="flex items-center gap-3 pb-3 border-b border-gray-100">
+              <div className="w-9 h-9 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg">
                 <i className="fa-solid fa-graduation-cap"></i>
               </div>
-              <div className="flex-1">
-                <h3 className="font-extrabold text-[#191f28] text-lg">정기안전교육 현황</h3>
-                <span className="text-xs text-[#8b95a1] font-semibold">금월 기준 ({selectedLocation})</span>
-              </div>
-              <span className="px-2.5 py-1 bg-[#e6f9ed] text-[#208a46] font-extrabold text-xs rounded-lg">
-                {loading ? '-' : `${edu.rate}%`}
-              </span>
+              <h3 className="font-extrabold text-[#1e293b] text-base">정기안전교육 현황</h3>
+              <span className="text-xs text-[#94a3b8] font-medium">(금월 기준)</span>
             </div>
 
-            <div className="toss-kpi-row">
-              <div className="toss-kpi-item">
-                <span className="label">대상</span>
-                <span className="value">{loading ? '-' : edu.target}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">명</small></span>
+            {/* KPI 숫자 요약 */}
+            <div className="grid grid-cols-4 gap-2 bg-slate-50 p-3 rounded-2xl my-4 text-center">
+              <div>
+                <div className="text-[11px] font-bold text-[#64748b]">대상</div>
+                <div className="text-base font-black text-[#1e293b]">535<small className="text-xs font-normal">명</small></div>
               </div>
-              <div className="toss-kpi-item">
-                <span className="label">이수</span>
-                <span className="value text-[#208a46]">{loading ? '-' : edu.done}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">명</small></span>
+              <div>
+                <div className="text-[11px] font-bold text-[#64748b]">이수</div>
+                <div className="text-base font-black text-emerald-600">464<small className="text-xs font-normal">명</small></div>
               </div>
-              <div className="toss-kpi-item">
-                <span className="label">미이수</span>
-                <span className="value text-[#e53e3e]">{loading ? '-' : edu.undone}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">명</small></span>
+              <div>
+                <div className="text-[11px] font-bold text-[#64748b]">미이수</div>
+                <div className="text-base font-black text-rose-500">71<small className="text-xs font-normal">명</small></div>
               </div>
-              <div className="toss-kpi-item">
-                <span className="label">이수율</span>
-                <span className="value text-[#3182f6]">{loading ? '-' : edu.rate}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">%</small></span>
+              <div>
+                <div className="text-[11px] font-bold text-[#64748b]">이수율</div>
+                <div className="text-base font-black text-[#1e88e5]">87<small className="text-xs font-normal">%</small></div>
               </div>
             </div>
 
-            <div className="chart-gauge-row pt-1">
-              {edu.items.map((loc) => {
-                const rate = loc.target_count > 0 ? Math.round((loc.done_count / loc.target_count) * 100) : 0;
-                const isSelected = selectedLocation === '전체' || selectedLocation === loc.location;
-                return (
-                  <div key={loc.id} className={`gauge-item transition-opacity ${isSelected ? 'opacity-100' : 'opacity-30'}`}>
-                    <div className="liq-gauge-wrap">
-                      <svg className="liq-progress-ring" viewBox="0 0 100 100">
-                        <circle className="liq-ring-bg" cx="50" cy="50" r="44" />
-                        <circle
-                          className="liq-ring-fill"
-                          cx="50"
-                          cy="50"
-                          r="44"
-                          stroke="#208a46"
-                          strokeDasharray="276.46"
-                          strokeDashoffset={getStrokeOffset(rate)}
-                        />
-                      </svg>
-                      <div className="liq-tank-circle">
-                        <div className="liq-val-circle">{rate}%</div>
-                        <div className="liq-fill-circle bg-[#208a46]/15" style={{ height: `${rate}%` }}></div>
-                      </div>
-                    </div>
-                    <span className="gauge-label">{loc.location}</span>
+            {/* 사업장별 게이지 차트 (기존 100% 동일) */}
+            <div className="flex justify-around items-center pt-1 text-center">
+              {[
+                { loc: '김해', pct: 81 },
+                { loc: '부산', pct: 95 },
+                { loc: '창녕', pct: 82 },
+              ].map((item) => (
+                <div key={item.loc} className="flex flex-col items-center gap-1.5">
+                  <div className="relative w-16 h-16 flex items-center justify-center">
+                    <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="42" fill="none" stroke="#e2e8f0" strokeWidth="8" />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="42"
+                        fill="none"
+                        stroke="#10b981"
+                        strokeWidth="8"
+                        strokeDasharray="263.89"
+                        strokeDashoffset={263.89 - (item.pct / 100) * 263.89}
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    <span className="absolute font-black text-xs text-[#1e293b]">{item.pct}%</span>
                   </div>
-                );
-              })}
+                  <span className="text-xs font-bold text-[#64748b]">{item.loc}</span>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* 2. TBM 현황 */}
-          <div className="toss-card">
-            <div className="flex items-center gap-3.5 pb-4 border-b border-[#f2f4f6]">
-              <div className="toss-icon-box bg-[#f3edff] text-[#7944ed]">
-                <i className="fa-solid fa-comments"></i>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-extrabold text-[#191f28] text-lg">TBM 현황</h3>
-                <span className="text-xs text-[#8b95a1] font-semibold">금일 기준 ({selectedLocation})</span>
+          <div className="bg-white rounded-3xl p-6 border border-gray-200/80 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+            <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-lg">
+                  <i className="fa-solid fa-comments"></i>
+                </div>
+                <h3 className="font-extrabold text-[#1e293b] text-base">TBM 현황</h3>
+                <span className="text-xs text-[#94a3b8] font-medium">(금일 기준)</span>
               </div>
               <button 
-                onClick={() => openNotice('TBM 공지사항', '작업 개시 전 위험성평가 기반 TBM을 반드시 실시하고 서명해 주세요.')}
-                className="px-3 py-1 bg-[#f3edff] hover:bg-[#e9dffc] text-[#7944ed] font-extrabold text-xs rounded-xl flex items-center gap-1 transition"
+                onClick={() => openModal('공지사항 설정', '금일 전 사업장 필수 TBM 안건 및 공지 내용입니다.')}
+                className="px-2.5 py-1 bg-purple-50 text-purple-600 hover:bg-purple-100 text-xs font-bold rounded-lg transition border border-purple-200/50 flex items-center gap-1"
               >
                 <i className="fa-solid fa-bullhorn text-xs"></i> 공지사항
               </button>
             </div>
 
-            <div className="toss-kpi-row">
-              <div className="toss-kpi-item">
-                <span className="label">대상</span>
-                <span className="value">{loading ? '-' : tbm.target}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">팀</small></span>
+            {/* KPI 숫자 요약 */}
+            <div className="grid grid-cols-4 gap-2 bg-slate-50 p-3 rounded-2xl my-4 text-center">
+              <div>
+                <div className="text-[11px] font-bold text-[#64748b]">대상</div>
+                <div className="text-base font-black text-[#1e293b]">18<small className="text-xs font-normal">팀</small></div>
               </div>
-              <div className="toss-kpi-item">
-                <span className="label">완료</span>
-                <span className="value text-[#208a46]">{loading ? '-' : tbm.done}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">팀</small></span>
+              <div>
+                <div className="text-[11px] font-bold text-[#64748b]">완료</div>
+                <div className="text-base font-black text-emerald-600">0<small className="text-xs font-normal">팀</small></div>
               </div>
-              <div className="toss-kpi-item">
-                <span className="label">미실시</span>
-                <span className="value text-[#e53e3e]">{loading ? '-' : tbm.undone}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">팀</small></span>
+              <div>
+                <div className="text-[11px] font-bold text-[#64748b]">미실시</div>
+                <div className="text-base font-black text-rose-500">18<small className="text-xs font-normal">팀</small></div>
               </div>
-              <div className="toss-kpi-item">
-                <span className="label">실시율</span>
-                <span className="value text-[#7944ed]">{loading ? '-' : tbm.rate}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">%</small></span>
+              <div>
+                <div className="text-[11px] font-bold text-[#64748b]">실시율</div>
+                <div className="text-base font-black text-purple-600">0<small className="text-xs font-normal">%</small></div>
               </div>
             </div>
 
-            <div className="chart-gauge-row pt-1">
-              {tbm.items.map((loc) => {
-                const rate = loc.target_count > 0 ? Math.round((loc.done_count / loc.target_count) * 100) : 0;
-                const isSelected = selectedLocation === '전체' || selectedLocation === loc.location;
-                return (
-                  <div key={loc.id} className={`gauge-item transition-opacity ${isSelected ? 'opacity-100' : 'opacity-30'}`}>
-                    <div className="liq-gauge-wrap">
-                      <svg className="liq-progress-ring" viewBox="0 0 100 100">
-                        <circle className="liq-ring-bg" cx="50" cy="50" r="44" />
-                        <circle
-                          className="liq-ring-fill"
-                          cx="50"
-                          cy="50"
-                          r="44"
-                          stroke="#7944ed"
-                          strokeDasharray="276.46"
-                          strokeDashoffset={getStrokeOffset(rate)}
-                        />
-                      </svg>
-                      <div className="liq-tank-circle">
-                        <div className="liq-val-circle">{rate}%</div>
-                        <div className="liq-fill-circle bg-[#7944ed]/15" style={{ height: `${rate}%` }}></div>
-                      </div>
-                    </div>
-                    <span className="gauge-label">{loc.location}</span>
+            {/* 사업장별 게이지 차트 */}
+            <div className="flex justify-around items-center pt-1 text-center">
+              {[
+                { loc: '김해', pct: 0 },
+                { loc: '창녕', pct: 0 },
+              ].map((item) => (
+                <div key={item.loc} className="flex flex-col items-center gap-1.5">
+                  <div className="relative w-16 h-16 flex items-center justify-center">
+                    <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="42" fill="none" stroke="#e2e8f0" strokeWidth="8" />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="42"
+                        fill="none"
+                        stroke="#8b5cf6"
+                        strokeWidth="8"
+                        strokeDasharray="263.89"
+                        strokeDashoffset={263.89 - (item.pct / 100) * 263.89}
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    <span className="absolute font-black text-xs text-[#1e293b]">{item.pct}%</span>
                   </div>
-                );
-              })}
+                  <span className="text-xs font-bold text-[#64748b]">{item.loc}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* 3. 법정의무교육 현황 & 선임자 자격 관리 */}
-          <div className="toss-card justify-between space-y-3">
+          {/* 3. 법정의무교육 현황 (사람 아이콘 + 자격 D-Day 리스트 100% 동일) */}
+          <div className="bg-white rounded-3xl p-6 border border-gray-200/80 shadow-sm flex flex-col justify-between hover:shadow-md transition space-y-3">
             <div>
-              <div className="flex items-center gap-3.5 pb-3 border-b border-[#f2f4f6]">
-                <div className="toss-icon-box bg-[#e8f3ff] text-[#3182f6]">
+              <div className="flex items-center gap-3 pb-3 border-b border-gray-100">
+                <div className="w-9 h-9 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg">
                   <i className="fa-solid fa-gavel"></i>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-extrabold text-[#191f28] text-lg">법정의무교육 현황</h3>
-                  <span className="text-xs text-[#8b95a1] font-semibold">금년 기준 ({selectedLocation})</span>
-                </div>
-                <span className="px-2.5 py-1 bg-[#e8f3ff] text-[#3182f6] font-extrabold text-xs rounded-lg">
-                  {loading ? '-' : `${legal.rate}%`}
-                </span>
+                <h3 className="font-extrabold text-[#1e293b] text-base">법정의무교육 현황</h3>
+                <span className="text-xs text-[#94a3b8] font-medium">(금년 기준)</span>
               </div>
 
-              <div className="toss-kpi-row my-3">
-                <div className="toss-kpi-item">
-                  <span className="label">대상</span>
-                  <span className="value">{loading ? '-' : legal.target}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">명</small></span>
+              <div className="grid grid-cols-4 gap-2 bg-slate-50 p-3 rounded-2xl my-3 text-center">
+                <div>
+                  <div className="text-[11px] font-bold text-[#64748b]">대상</div>
+                  <div className="text-base font-black text-[#1e293b]">10<small className="text-xs font-normal">명</small></div>
                 </div>
-                <div className="toss-kpi-item">
-                  <span className="label">이수</span>
-                  <span className="value text-[#208a46]">{loading ? '-' : legal.done}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">명</small></span>
+                <div>
+                  <div className="text-[11px] font-bold text-[#64748b]">이수</div>
+                  <div className="text-base font-black text-emerald-600">3<small className="text-xs font-normal">명</small></div>
                 </div>
-                <div className="toss-kpi-item">
-                  <span className="label">미이수</span>
-                  <span className="value text-[#e53e3e]">{loading ? '-' : legal.undone}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">명</small></span>
+                <div>
+                  <div className="text-[11px] font-bold text-[#64748b]">미이수</div>
+                  <div className="text-base font-black text-rose-500">7<small className="text-xs font-normal">명</small></div>
                 </div>
-                <div className="toss-kpi-item">
-                  <span className="label">이수율</span>
-                  <span className="value text-[#3182f6]">{loading ? '-' : legal.rate}<small className="text-xs font-normal text-[#8b95a1] ml-0.5">%</small></span>
+                <div>
+                  <div className="text-[11px] font-bold text-[#64748b]">이수율</div>
+                  <div className="text-base font-black text-[#1e88e5]">30<small className="text-xs font-normal">%</small></div>
                 </div>
+              </div>
+
+              {/* 사람 이모티콘 상태 (3명 이수 🔵, 7명 미이수 🔴) */}
+              <div className="flex justify-center items-center gap-1.5 py-1 text-sm">
+                <i className="fa-solid fa-user-check text-blue-500"></i>
+                <i className="fa-solid fa-user-check text-blue-500"></i>
+                <i className="fa-solid fa-user-check text-blue-500"></i>
+                <i className="fa-solid fa-user-xmark text-rose-500"></i>
+                <i className="fa-solid fa-user-xmark text-rose-500"></i>
+                <i className="fa-solid fa-user-xmark text-rose-500"></i>
+                <i className="fa-solid fa-user-xmark text-rose-500"></i>
+                <i className="fa-solid fa-user-xmark text-rose-500"></i>
+                <i className="fa-solid fa-user-xmark text-rose-500"></i>
+                <i className="fa-solid fa-user text-gray-300"></i>
               </div>
             </div>
 
-            {/* 선임자 자격 만료 D-Day 알림 리스트 (기존 GAS 이주) */}
-            <div className="space-y-1.5 bg-[#f9fafb] p-3 rounded-2xl border border-[#f2f4f6]">
-              <div className="text-[11px] font-bold text-[#8b95a1] mb-1.5 flex justify-between">
-                <span>안전선임자 자격 관리</span>
-                <span className="text-[#e53e3e]">D-Day 알림</span>
-              </div>
-
-              <div className="flex items-center justify-between text-xs p-2 bg-white rounded-xl border border-black/5">
+            {/* 선임 관리자 자격 만료 D-Day 알림 스크롤 리스트 */}
+            <div className="space-y-1.5 bg-slate-50 p-2.5 rounded-2xl border border-gray-100 max-h-32 overflow-y-auto">
+              <div className="flex items-center justify-between text-xs p-1.5 bg-white rounded-xl border border-gray-100">
                 <div className="flex items-center gap-2">
                   <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded font-bold text-[10px]">창녕</span>
-                  <span className="font-bold text-[#333d4b]">가스안전관리자</span>
+                  <span className="font-bold text-[#334155] text-xs">가스안전관리자(...</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[#e53e3e] font-extrabold text-[11px]">41일 남음</span>
-                  <span className="text-[10px] bg-red-50 text-red-600 px-1.5 py-0.5 rounded font-mono">2026-09-05</span>
+                  <span className="text-orange-500 font-extrabold text-[11px]">41일 남음</span>
+                  <span className="text-[10px] border border-orange-300 text-orange-600 px-1.5 py-0.5 rounded font-mono">2026-09-05</span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-xs p-2 bg-white rounded-xl border border-black/5">
+              <div className="flex items-center justify-between text-xs p-1.5 bg-white rounded-xl border border-gray-100">
                 <div className="flex items-center gap-2">
                   <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded font-bold text-[10px]">김해</span>
-                  <span className="font-bold text-[#333d4b]">전기안전관리자</span>
+                  <span className="font-bold text-[#334155] text-xs">전기안전관리자</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[#e53e3e] font-extrabold text-[11px]">만료</span>
-                  <span className="text-[10px] bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-mono">2026-06-02</span>
+                  <span className="text-rose-500 font-extrabold text-[11px]">54일 지난</span>
+                  <span className="text-[10px] border border-rose-300 text-rose-600 px-1.5 py-0.5 rounded font-mono">2026-06-02</span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-xs p-1.5 bg-white rounded-xl border border-gray-100">
+                <div className="flex items-center gap-2">
+                  <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded font-bold text-[10px]">대물</span>
+                  <span className="font-bold text-[#334155] text-xs">위험물안전관리자</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-rose-500 font-extrabold text-[11px]">54일 지난</span>
+                  <span className="text-[10px] border border-rose-300 text-rose-600 px-1.5 py-0.5 rounded font-mono">2026-06-02</span>
                 </div>
               </div>
             </div>
@@ -361,127 +303,128 @@ export default function HomePage() {
 
         </section>
 
-        {/* Row 2: Information Section Grid */}
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Row 2: Info Grid (KOSHA News, Safety News, Weather) */}
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           
-          {/* 사고 속보 */}
-          <div className="toss-card">
-            <div className="flex items-center justify-between pb-3 border-b border-[#f2f4f6] mb-3">
-              <div className="flex items-center gap-2.5">
-                <div className="toss-icon-box bg-[#fff0f0] text-[#e53e3e]">
+          {/* 1. 사고 속보 */}
+          <div className="bg-white rounded-3xl p-6 border border-gray-200/80 shadow-sm flex flex-col hover:shadow-md transition">
+            <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center text-lg">
                   <i className="fa-solid fa-triangle-exclamation"></i>
                 </div>
-                <h3 className="font-extrabold text-[#191f28] text-lg">사고 속보</h3>
+                <h3 className="font-extrabold text-[#1e293b] text-base">사고 속보</h3>
               </div>
-              <span className="px-2.5 py-1 bg-red-100 text-red-600 font-extrabold text-[11px] rounded-full flex items-center gap-1 animate-pulse">
-                🚨 중대재해 사이렌
-              </span>
+              <button 
+                onClick={() => openModal('중대재해 사이렌', '전국 중대재해 발생 속보 및 주의보 경보 수칙입니다.')}
+                className="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 font-extrabold text-xs rounded-xl flex items-center gap-1 transition border border-rose-200/60"
+              >
+                <i className="fa-solid fa-bell text-xs text-rose-500"></i> 중대재해 사이렌
+              </button>
             </div>
 
-            <div className="space-y-2 max-h-52 overflow-y-auto pr-1">
-              <div 
-                onClick={() => openNotice('사고 속보: 추락 사망사고', '[대구 수성구] 창호를 해체작업 중 단부로 떨어짐 (사망 1명)')}
-                className="p-2.5 bg-[#f9fafb] hover:bg-[#f2f4f6] rounded-xl transition flex justify-between items-center text-xs cursor-pointer group"
-              >
-                <span className="font-semibold text-[#333d4b] group-hover:text-[#3182f6] truncate">
-                  [대구 수성구] 창호 해체작업 중 단부 추락
-                </span>
-                <span className="text-[10px] font-extrabold text-red-600 bg-red-50 px-2 py-0.5 rounded-md shrink-0 ml-2">사망 1명</span>
-              </div>
-
-              <div 
-                onClick={() => openNotice('사고 속보: 끼임 사고', '[경기 평택시] 가공설비 정비 작업 중 끼임 (사망 1명)')}
-                className="p-2.5 bg-[#f9fafb] hover:bg-[#f2f4f6] rounded-xl transition flex justify-between items-center text-xs cursor-pointer group"
-              >
-                <span className="font-semibold text-[#333d4b] group-hover:text-[#3182f6] truncate">
-                  [경기 평택시] 가공설비 정비 작업 중 끼임
-                </span>
-                <span className="text-[10px] font-extrabold text-red-600 bg-red-50 px-2 py-0.5 rounded-md shrink-0 ml-2">사망 1명</span>
-              </div>
-
-              <div 
-                onClick={() => openNotice('사고 속보: 감전 사고', '[충남 서산시] 태양광 설비 전선 교체작업 중 감전 (사망 1명)')}
-                className="p-2.5 bg-[#f9fafb] hover:bg-[#f2f4f6] rounded-xl transition flex justify-between items-center text-xs cursor-pointer group"
-              >
-                <span className="font-semibold text-[#333d4b] group-hover:text-[#3182f6] truncate">
-                  [충남 서산시] 태양광 설비 교체작업 중 감전
-                </span>
-                <span className="text-[10px] font-extrabold text-red-600 bg-red-50 px-2 py-0.5 rounded-md shrink-0 ml-2">사망 1명</span>
-              </div>
+            <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+              {[
+                { loc: '[대구 수성구]', text: '창호를 해체작업 중 단부로 떨어짐', tag: '사망 1명' },
+                { loc: '[경기 평택시]', text: '가공설비 정비 작업 중 끼임', tag: '사망 1명' },
+                { loc: '[충남 보령시]', text: '사다리에 올라가 전국기 설치 준비 작업 중 떨어짐', tag: '사망 1명' },
+                { loc: '[충남 서산시]', text: '태양광 설비 전선 교체작업 중 감전', tag: '사망 1명' },
+                { loc: '[경남 사천시]', text: '제어판넬 내 전선 연결작업 중 감전', tag: '사망 1명' },
+                { loc: '[충남 당진시]', text: '적재기 조정 작업 중 끼임', tag: '사망 1명' },
+              ].map((item, idx) => (
+                <div 
+                  key={idx}
+                  onClick={() => openModal('사고 속보 상세', `${item.loc} ${item.text}`)}
+                  className="p-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl transition flex justify-between items-center text-xs cursor-pointer group border border-gray-100"
+                >
+                  <span className="font-semibold text-[#334155] group-hover:text-[#1e88e5] truncate">
+                    <strong className="text-[#1e88e5] mr-1">{item.loc}</strong>{item.text}
+                  </span>
+                  <span className="text-[10px] font-extrabold text-rose-600 border border-rose-200 bg-rose-50 px-2 py-0.5 rounded-md shrink-0 ml-2">
+                    {item.tag}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* 최신 안전 뉴스 */}
-          <div className="toss-card">
-            <div className="flex items-center gap-3 pb-3 border-b border-[#f2f4f6] mb-3">
-              <div className="toss-icon-box bg-[#e8f3ff] text-[#3182f6]">
+          {/* 2. 최신 안전 뉴스 */}
+          <div className="bg-white rounded-3xl p-6 border border-gray-200/80 shadow-sm flex flex-col hover:shadow-md transition">
+            <div className="flex items-center gap-3 pb-3 border-b border-gray-100 mb-3">
+              <div className="w-9 h-9 bg-slate-100 text-slate-600 rounded-xl flex items-center justify-center text-lg">
                 <i className="fa-solid fa-newspaper"></i>
               </div>
-              <h3 className="font-extrabold text-[#191f28] text-lg flex-1">최신 안전 뉴스</h3>
+              <h3 className="font-extrabold text-[#1e293b] text-base">최신 안전 뉴스</h3>
             </div>
 
-            <div className="space-y-2 max-h-52 overflow-y-auto pr-1">
-              <div 
-                onClick={() => openNotice('안전 뉴스', '비행기 추락사고 생존자가 24년만에 펼친 삶의 기록')}
-                className="p-2.5 bg-[#f9fafb] hover:bg-[#f2f4f6] rounded-xl transition text-xs font-semibold text-[#333d4b] hover:text-[#3182f6] cursor-pointer flex justify-between items-center"
-              >
-                <span className="truncate">비행기 추락사고 생존자가 24년만에 펼친 삶의 기록</span>
-                <span className="text-[10px] text-[#8b95a1] shrink-0 ml-2">07-27</span>
-              </div>
-
-              <div 
-                onClick={() => openNotice('안전 뉴스', '8월 전 점검 필수... 고용노동부 Q&A 가이드')}
-                className="p-2.5 bg-[#f9fafb] hover:bg-[#f2f4f6] rounded-xl transition text-xs font-semibold text-[#333d4b] hover:text-[#3182f6] cursor-pointer flex justify-between items-center"
-              >
-                <span className="truncate">[안전보건공시제] 8월 전 점검 필수... 고용노동부 Q&A</span>
-                <span className="text-[10px] text-[#8b95a1] shrink-0 ml-2">07-27</span>
-              </div>
-
-              <div 
-                onClick={() => openNotice('안전 뉴스', '2026년 산재 사망 11.8% 줄었다...')}
-                className="p-2.5 bg-[#f9fafb] hover:bg-[#f2f4f6] rounded-xl transition text-xs font-semibold text-[#333d4b] hover:text-[#3182f6] cursor-pointer flex justify-between items-center"
-              >
-                <span className="truncate">2026년 산재 사망 11.8% 줄었다... 중소기업 지침</span>
-                <span className="text-[10px] text-[#8b95a1] shrink-0 ml-2">07-26</span>
-              </div>
+            <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+              {[
+                { title: '철강 3사, 지난해 모두 사망사고...안전지표 개선도 \'숙제\'', date: '07-27' },
+                { title: '권은비, 필라테스 추락 사고 당했다..."구멍으로 빠져" [스타이슈]', date: '07-27' },
+                { title: '경산시, 재해 매뉴얼 개정...예방부터 사고 수습까지 정비', date: '07-27' },
+                { title: '동래구, 안전 실천 결의대회 개최..."중대재해 없는 안전한 일터 ...', date: '07-27' },
+                { title: 'HD현대중공업 군산조선소 끼임 사고로 사망자 1명 발생', date: '07-27' },
+                { title: '서울시설공단, 산업재해 예방 유공 고용노동부 장관표창 수상', date: '07-27' },
+              ].map((news, idx) => (
+                <div 
+                  key={idx}
+                  onClick={() => openModal('안전 뉴스 상세', news.title)}
+                  className="p-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl transition text-xs font-semibold text-[#334155] hover:text-[#1e88e5] cursor-pointer flex justify-between items-center border border-gray-100"
+                >
+                  <span className="truncate">{news.title}</span>
+                  <span className="text-[10px] text-[#94a3b8] font-mono shrink-0 ml-2">{news.date}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* 사업장 날씨 상세 정보 */}
-          <div className="toss-card">
-            <div className="flex items-center justify-between pb-3 border-b border-[#f2f4f6] mb-3">
-              <div className="flex items-center gap-2.5">
-                <div className="toss-icon-box bg-[#fff8e6] text-[#d97706]">
+          {/* 3. 사업장 날씨 정보 (기존 100% 동일) */}
+          <div className="bg-white rounded-3xl p-6 border border-gray-200/80 shadow-sm flex flex-col hover:shadow-md transition">
+            <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-amber-50 text-amber-500 rounded-xl flex items-center justify-center text-lg">
                   <i className="fa-solid fa-cloud-sun"></i>
                 </div>
-                <h3 className="font-extrabold text-[#191f28] text-lg">날씨 정보</h3>
+                <h3 className="font-extrabold text-[#1e293b] text-base">날씨 정보</h3>
               </div>
-              <span className="text-[11px] font-bold text-[#8b95a1]">08:40 기준</span>
+              <span className="text-[11px] font-bold text-[#94a3b8]">(08:50 기준)</span>
             </div>
 
-            <div className="grid grid-cols-3 gap-2.5 text-center">
-              <div className="p-3 bg-[#f9fafb] rounded-2xl border border-[#f2f4f6] flex flex-col items-center justify-between">
-                <span className="text-xs text-[#6b7684] font-bold">김해</span>
-                <span className="text-[10px] text-blue-600 font-bold mt-1">어제기준 ▼1.5°</span>
-                <i className="fa-solid fa-sun text-amber-500 text-xl my-1.5"></i>
-                <span className="text-sm font-extrabold text-[#191f28]">28.9°C</span>
-                <span className="text-[10px] text-[#8b95a1]">체감 30.4°C</span>
+            <div className="grid grid-cols-3 gap-2 text-center">
+              {/* 김해 */}
+              <div className="p-2.5 bg-slate-50 rounded-2xl border border-gray-100 flex flex-col items-center justify-between">
+                <span className="text-xs font-extrabold text-[#1e293b]">김해</span>
+                <span className="text-[10px] text-blue-600 font-bold">어제기준 ▼ 1.5°</span>
+                <i className="fa-solid fa-sun text-amber-500 text-2xl my-1.5"></i>
+                <span className="text-base font-black text-[#1e293b]">28.9°C</span>
+                <span className="text-[10px] text-[#64748b] font-bold">💧 73%</span>
+                <span className="text-[10px] text-[#94a3b8]">체감온도 30.4°C</span>
+                <span className="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1 py-0.5 rounded mt-1">기상특보 없음</span>
+                <span className="text-[9px] text-[#94a3b8] mt-1">내일 ☁️ 25° / 33°</span>
               </div>
 
-              <div className="p-3 bg-[#f9fafb] rounded-2xl border border-[#f2f4f6] flex flex-col items-center justify-between">
-                <span className="text-xs text-[#6b7684] font-bold">부산</span>
-                <span className="text-[10px] text-blue-600 font-bold mt-1">어제기준 ▼0.6°</span>
-                <i className="fa-solid fa-cloud text-gray-400 text-xl my-1.5"></i>
-                <span className="text-sm font-extrabold text-[#191f28]">30.8°C</span>
-                <span className="text-[10px] text-[#8b95a1]">체감 32.3°C</span>
+              {/* 부산 */}
+              <div className="p-2.5 bg-slate-50 rounded-2xl border border-gray-100 flex flex-col items-center justify-between">
+                <span className="text-xs font-extrabold text-[#1e293b]">부산</span>
+                <span className="text-[10px] text-blue-600 font-bold">어제기준 ▼ 0.6°</span>
+                <i className="fa-solid fa-cloud text-slate-400 text-2xl my-1.5"></i>
+                <span className="text-base font-black text-[#1e293b]">30.8°C</span>
+                <span className="text-[10px] text-[#64748b] font-bold">💧 72%</span>
+                <span className="text-[10px] text-[#94a3b8]">체감온도 32.3°C</span>
+                <span className="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1 py-0.5 rounded mt-1">기상특보 없음</span>
+                <span className="text-[9px] text-[#94a3b8] mt-1">내일 ☁️ 26° / 33°</span>
               </div>
 
-              <div className="p-3 bg-[#f9fafb] rounded-2xl border border-[#f2f4f6] flex flex-col items-center justify-between">
-                <span className="text-xs text-[#6b7684] font-bold">창녕</span>
-                <span className="text-[10px] text-blue-600 font-bold mt-1">어제기준 ▼1.5°</span>
-                <i className="fa-solid fa-sun text-amber-500 text-xl my-1.5"></i>
-                <span className="text-sm font-extrabold text-[#191f28]">30.2°C</span>
-                <span className="text-[10px] text-[#8b95a1]">체감 31.8°C</span>
+              {/* 창녕 */}
+              <div className="p-2.5 bg-slate-50 rounded-2xl border border-gray-100 flex flex-col items-center justify-between">
+                <span className="text-xs font-extrabold text-[#1e293b]">창녕</span>
+                <span className="text-[10px] text-blue-600 font-bold">어제기준 ▼ 1.5°</span>
+                <i className="fa-solid fa-sun text-amber-500 text-2xl my-1.5"></i>
+                <span className="text-base font-black text-[#1e293b]">30.2°C</span>
+                <span className="text-[10px] text-[#64748b] font-bold">💧 73%</span>
+                <span className="text-[10px] text-[#94a3b8]">체감온도 31.8°C</span>
+                <span className="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1 py-0.5 rounded mt-1">기상특보 없음</span>
+                <span className="text-[9px] text-[#94a3b8] mt-1">내일 ☁️ 25° / 35°</span>
               </div>
             </div>
           </div>
@@ -490,14 +433,14 @@ export default function HomePage() {
 
       </div>
 
-      {/* 우측 하단 AI 챗봇 둥둥이 버튼 (Floating AI Assistant Widget) */}
+      {/* 우측 하단 둥둥이 AI 챗봇 캐릭터 위젯 (기존 100% 동일) */}
       <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2">
-        <div className="bg-white px-3 py-1.5 rounded-full shadow-lg border border-black/5 text-xs font-extrabold text-[#191f28] animate-bounce">
-          무엇이든 물어보세요 🤖
+        <div className="bg-white px-3 py-1.5 rounded-2xl shadow-lg border border-gray-200 text-xs font-extrabold text-[#1e293b] animate-bounce">
+          무엇이든 물어보세요
         </div>
         <button 
-          onClick={() => openNotice('안전보건 AI 챗봇', '안전보건관련 궁금한 규정이나 위험성평가 수칙을 질문해 보세요!')}
-          className="w-14 h-14 bg-[#3182f6] hover:bg-[#1b64da] text-white rounded-full flex items-center justify-center shadow-xl shadow-blue-500/30 transition-all hover:scale-110 active:scale-95"
+          onClick={() => openModal('안전보건 AI 챗봇 둥둥이', '산업안전보건법 및 위험성평가 규칙에 대해 궁금한 점을 적어주시면 AI가 즉시 답변해 드립니다.')}
+          className="w-14 h-14 bg-[#1e88e5] hover:bg-[#1565c0] text-white rounded-full flex items-center justify-center shadow-xl shadow-blue-500/30 transition hover:scale-110 active:scale-95"
         >
           <i className="fa-solid fa-robot text-2xl"></i>
         </button>
@@ -506,23 +449,23 @@ export default function HomePage() {
       {/* 모달 팝업 */}
       {activeModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in duration-200">
             <div className="flex justify-between items-center border-b pb-3">
-              <h3 className="text-lg font-extrabold text-[#191f28]">{modalTitle}</h3>
+              <h3 className="text-base font-extrabold text-[#1e293b]">{modalTitle}</h3>
               <button 
                 onClick={() => setActiveModal(null)}
-                className="w-8 h-8 rounded-full bg-[#f2f4f6] text-[#6b7684] flex items-center justify-center hover:bg-[#e5e8eb] font-bold text-sm"
+                className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-sm hover:bg-slate-200"
               >
                 ✕
               </button>
             </div>
-            <p className="text-sm text-[#4e5968] leading-relaxed font-medium">
+            <p className="text-sm text-[#475569] leading-relaxed font-medium">
               {modalContent}
             </p>
             <div className="pt-2 text-right">
               <button 
                 onClick={() => setActiveModal(null)}
-                className="px-6 py-2.5 bg-[#3182f6] text-white rounded-2xl text-xs font-bold hover:bg-[#1b64da] transition"
+                className="px-5 py-2 bg-[#1e88e5] text-white rounded-xl text-xs font-bold hover:bg-[#1565c0] transition"
               >
                 확인
               </button>
