@@ -129,37 +129,101 @@ function shortenLoc(fullLoc: string) {
   return loc;
 }
 
-export const getKoshaRealtimeNews = unstable_cache(async () => {
-  const list = await fetchPostList();
-  
-  // 10개 실시간 파싱
-  const topList = list.slice(0, 10); 
+const FALLBACK_KOSHA_NEWS = [
+  { loc: "경북 구미", fullLoc: "경북 구미시", type: "추락 사고", timeInfo: "2026-07-28", casualty: "추락 사고", content: "칼라강판 덧씌우기 작업 중 밟고 있던 채광창이 파손되며 바닥으로 떨어져 사망함.", text: "칼라강판 덧씌우기 작업 중 채광창 파손으로 떨어짐", tag: "추락 사고", link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
+  { loc: "경남 함양", fullLoc: "경남 함양군", type: "끼임 사고", timeInfo: "2026-07-28", casualty: "끼임 사고", content: "설비 내 슬러지 제거 작업 중 설비가 갑자기 가동되어 스크류에 끼임 사망함.", text: "설비 내 슬러지 제거 작업 중 스크류 끼임 사고", tag: "끼임 사고", link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
+  { loc: "경북 경주", fullLoc: "경북 경주시", type: "추락 사고", timeInfo: "2026-07-27", casualty: "추락 사고", content: "철골 위에서 철골 조립 작업 중 균형을 잃고 아래로 떨어짐.", text: "철골 조립 작업 중 바닥으로 떨어짐", tag: "추락 사고", link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
+  { loc: "경북 포항", fullLoc: "경북 포항시", type: "추락 사고", timeInfo: "2026-07-27", casualty: "추락 사고", content: "철거 공사현장에서 배관을 밟고 이동 중 미끄러져 바닥으로 떨어짐.", text: "배관 이동 중 미끄러져 바닥으로 떨어짐", tag: "추락 사고", link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
+  { loc: "전남 순천", fullLoc: "전남 순천시", type: "추락 사고", timeInfo: "2026-07-26", casualty: "추락 사고", content: "풍력발전기 기둥 용접을 위해 작업발판 위에서 작업 중 떨어짐.", text: "풍력발전기 용접 작업발판 위에서 떨어짐", tag: "추락 사고", link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" }
+];
 
-  // 병렬 처리로 속도 대폭 향상
-  const results = await Promise.all(
-    topList.map(async (post: any) => {
-      const detail = await fetchPostDetail(post.bbsId, post.pstNo);
-      if (!detail) return null;
+function parseTitleRegex(title: string) {
+  let location = "전국";
+  let dateStr = "";
+  let accidentType = "속보";
+  let cleanTitle = title;
 
-      const plain = detail.pstCn.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-      const analysis = await parseWithGemini(plain, detail.pstNm);
+  // Pattern: [7/28, 경북 구미시] or [7/26, 전남광주 순천시]
+  const matchHeader = title.match(/^\[\s*(\d{1,2}\/\d{1,2})\s*,\s*([^\]]+)\]/);
+  if (matchHeader) {
+    dateStr = matchHeader[1];
+    location = matchHeader[2].trim();
+    cleanTitle = title.replace(matchHeader[0], '').trim();
+  } else {
+    const locMatch = title.match(/\[([^\]]+)\]/);
+    if (locMatch) {
+      location = locMatch[1].trim();
+      cleanTitle = title.replace(locMatch[0], '').trim();
+    }
+  }
+
+  // Shorten location
+  let shortLoc = location
+    .replace(/전남광주/, "전남 순천")
+    .replace(/전북전주/, "전북 전주")
+    .replace(/경북대구/, "경북")
+    .replace(/경남부산/, "경남")
+    .replace(/시$|군$|구$/g, '')
+    .trim();
+
+  if (!shortLoc) shortLoc = "전국";
+
+  // Determine accident type & tag
+  if (cleanTitle.includes('끼임')) accidentType = '끼임 사고';
+  else if (cleanTitle.includes('떨어짐') || cleanTitle.includes('추락')) accidentType = '추락 사고';
+  else if (cleanTitle.includes('쓰러짐') || cleanTitle.includes('질식')) accidentType = '질식/쓰러짐';
+  else if (cleanTitle.includes('맞음') || cleanTitle.includes('낙하')) accidentType = '낙하/맞음';
+  else if (cleanTitle.includes('부딪힘') || cleanTitle.includes('충돌')) accidentType = '충돌/부딪힘';
+  else if (cleanTitle.includes('화재') || cleanTitle.includes('폭발')) accidentType = '화재/폭발';
+  else if (cleanTitle.includes('깔림') || cleanTitle.includes('무너짐')) accidentType = '붕괴/깔림';
+  else accidentType = dateStr ? `${dateStr} 발생` : '속보';
+
+  return { 
+    shortLoc, 
+    fullLoc: location, 
+    dateStr, 
+    accidentType, 
+    cleanTitle: cleanTitle || title,
+    tag: accidentType 
+  };
+}
+
+export async function getKoshaRealtimeNews() {
+  try {
+    const list = await fetchPostList();
+    if (!list || list.length === 0) {
+      console.warn("fetchPostList returned empty, using fallback");
+      return FALLBACK_KOSHA_NEWS;
+    }
+
+    const topList = list.slice(0, 10);
+    const results = topList.map((post: any) => {
+      const title = post.pstNm || '';
+      const regDate = post.frstRegDt ? `${post.frstRegDt.slice(4,6)}-${post.frstRegDt.slice(6,8)}` : '';
+      const parsed = parseTitleRegex(title);
 
       return {
-        loc: shortenLoc(analysis.location || ''),
-        fullLoc: analysis.location,
-        type: analysis.accidentType,
-        timeInfo: analysis.timeInfo,
-        casualty: analysis.casualty,
-        content: analysis.correctedContent,
-        text: analysis.cleanTitle || detail.pstNm,
-        tag: analysis.casualty || '확인중',
-        link: `https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01`
+        loc: parsed.shortLoc,
+        fullLoc: parsed.fullLoc,
+        type: parsed.accidentType,
+        timeInfo: parsed.dateStr ? `2026-${parsed.dateStr.replace('/', '-')}` : (regDate ? `2026-${regDate}` : "최신"),
+        casualty: parsed.accidentType,
+        content: title,
+        text: parsed.cleanTitle,
+        tag: parsed.tag,
+        link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01"
       };
-    })
-  );
+    });
 
-  return results.filter(Boolean);
-}, ['kosha-realtime-v2'], { revalidate: 3600 });
+    return results.length > 0 ? results : FALLBACK_KOSHA_NEWS;
+  } catch (e) {
+    console.error("getKoshaRealtimeNews err:", e);
+    return FALLBACK_KOSHA_NEWS;
+  }
+}
+
+
+
 
 export const getKoshaAlertPosters = unstable_cache(async () => {
   const apiUrl = "https://portal.kosha.or.kr/api/portal24/bizC/p/CSADV50000/selectImprtnDsstrSirnList";

@@ -1,9 +1,11 @@
-@import "tailwindcss";
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+@import "tailwindcss";
+
 @theme {
   --font-sans: "Pretendard", ui-sans-serif, system-ui, sans-serif;
 }
+
 
 :root {
   --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
@@ -170,4 +172,59 @@ body {
   font-weight: 700;
   color: var(--toss-text-gray);
 }
-@import './legacy-style.css';
+
+/* Home Grid Layouts */
+.home-grid-top {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .home-grid-top {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.home-grid-bottom {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .home-grid-bottom {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Liquid Gauge Wave Animation */
+@keyframes liqWave {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.liq-wave-anim {
+  position: absolute;
+  top: -130%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  border-radius: 38%;
+  animation: liqWave 6s infinite linear;
+  opacity: 0.35;
+  background: white;
+}
+
+.liq-wave-anim-back {
+  position: absolute;
+  top: -135%;
+  left: -45%;
+  width: 200%;
+  height: 200%;
+  border-radius: 42%;
+  animation: liqWave 9s infinite linear;
+  opacity: 0.2;
+  background: white;
+}
+

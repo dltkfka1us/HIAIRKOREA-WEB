@@ -78,8 +78,10 @@ export default function HomeDash({
                       </svg>
                       <div className="liq-tank-circle absolute w-[76px] h-[76px] rounded-full overflow-hidden bg-white shadow-inner flex items-center justify-center">
                         <div className="liq-val-circle absolute z-10 font-black text-base text-slate-800">{pct}<span className="liq-pct text-xs">%</span></div>
-                        <div className="liq-fill-circle absolute bottom-0 w-full transition-all duration-1000" style={{ height: `${pct}%` }}>
+                        <div className="liq-fill-circle absolute bottom-0 w-full transition-all duration-1000 overflow-hidden" style={{ height: `${pct}%` }}>
+                          <div className="liq-wave-anim-back"></div>
                           <div className="liq-solid-circle w-full h-full" style={{ background: 'linear-gradient(0deg,#059669,#10b981)' }}></div>
+                          <div className="liq-wave-anim"></div>
                         </div>
                       </div>
                     </div>
@@ -128,7 +130,7 @@ export default function HomeDash({
             </div>
 
             <div className="chart-gauge-row flex justify-around items-center">
-              {['김해', '부산', '창녕'].map((loc, idx) => {
+              {['김해', '창녕'].map((loc, idx) => {
                 const locItem = getLocData(loc, tbmData?.locations || []);
                 const pct = locItem.pct || 0;
                 return (
@@ -140,8 +142,10 @@ export default function HomeDash({
                       </svg>
                       <div className="liq-tank-circle absolute w-[76px] h-[76px] rounded-full overflow-hidden bg-white shadow-inner flex items-center justify-center">
                         <div className="liq-val-circle absolute z-10 font-black text-base text-slate-800">{pct}<span className="liq-pct text-xs">%</span></div>
-                        <div className="liq-fill-circle absolute bottom-0 w-full transition-all duration-1000" style={{ height: `${pct}%` }}>
+                        <div className="liq-fill-circle absolute bottom-0 w-full transition-all duration-1000 overflow-hidden" style={{ height: `${pct}%` }}>
+                          <div className="liq-wave-anim-back"></div>
                           <div className="liq-solid-circle w-full h-full" style={{ background: 'linear-gradient(0deg,#7c3aed,#8b5cf6)' }}></div>
+                          <div className="liq-wave-anim"></div>
                         </div>
                       </div>
                     </div>
@@ -240,15 +244,22 @@ export default function HomeDash({
             </span>
           </div>
           <div className="scroll-list overflow-y-auto flex-1 bg-white">
-            {newsData?.kosha?.map((item: any, i: number) => (
-              <a key={i} href={item.link || '#'} onClick={(e) => { e.preventDefault(); openModal('사고 속보', item.text, item.link, item); }} className="flex justify-between items-center px-4 py-3 border-b border-gray-200 hover:bg-slate-50 cursor-pointer transition group">
-                <span className="font-bold text-slate-800 text-[13px] truncate max-w-[80%] pr-2 group-hover:text-blue-700 transition-colors">
-                  <span className="text-[#3182f6] mr-1.5 shrink-0">[{item.loc}]</span>
-                  {item.text}
-                </span>
-                <span className="text-[12px] font-extrabold text-[#e53e3e] shrink-0">{item.tag}</span>
-              </a>
-            ))}
+            {newsData?.kosha?.map((item: any, i: number) => {
+              const displayTag = (!item.tag || item.tag === '확인중') 
+                ? (item.type && item.type !== '산업재해' ? item.type : '사고속보') 
+                : item.tag;
+              const displayLoc = (item.loc && item.loc.trim() !== '') ? item.loc : '전국';
+
+              return (
+                <a key={i} href={item.link || '#'} onClick={(e) => { e.preventDefault(); openModal('사고 속보', item.text, item.link, item); }} className="flex justify-between items-center px-4 py-2.5 border-b border-gray-100 hover:bg-slate-50 cursor-pointer transition group">
+                  <div className="font-bold text-slate-800 text-[13px] truncate max-w-[76%] pr-2 group-hover:text-blue-700 transition-colors flex items-center gap-1.5">
+                    <span className="text-[#3182f6] bg-blue-50 px-1.5 py-0.5 rounded text-[11px] font-black shrink-0">[{displayLoc}]</span>
+                    <span className="truncate">{item.text}</span>
+                  </div>
+                  <span className="text-[11px] font-extrabold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100 shrink-0">{displayTag}</span>
+                </a>
+              );
+            })}
           </div>
         </div>
 

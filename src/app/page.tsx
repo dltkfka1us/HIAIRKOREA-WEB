@@ -1,7 +1,9 @@
 import { getEduStats, getTbmStats, getLegalStats, getNotices } from '@/lib/actions/home.actions';
 import DashboardClient from './components/DashboardClient';
-
 import { getKoshaRealtimeNews, getKoshaAlertPosters } from '@/lib/services/kosha.service';
+
+export const dynamic = 'force-dynamic';
+
 
 async function getWeatherData() {
   const cities = [
