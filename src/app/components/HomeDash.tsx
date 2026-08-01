@@ -35,13 +35,13 @@ export default function HomeDash({
       <section className="home-grid-top">
         
         {/* 1. Education Status */}
-        <div className="content-card kpi-dashboard-card border border-gray-200/60 shadow-sm rounded-3xl bg-white overflow-hidden h-[340px] flex flex-col">
-          <div className="card-header-simple p-4 border-b border-gray-100 flex items-center gap-3 shrink-0">
-            <div className="icon-box bg-emerald-50 w-10 h-10 rounded-xl flex items-center justify-center">
-              <i className="fa-solid fa-graduation-cap text-emerald-500 text-lg"></i>
+        <div className="content-card kpi-dashboard-card border border-slate-200/80 shadow-sm rounded-[20px] bg-white overflow-hidden h-[340px] flex flex-col transition hover:shadow-md">
+          <div className="card-header-simple p-3.5 px-4 border-b border-gray-100 flex items-center gap-3 shrink-0">
+            <div className="icon-box bg-emerald-50 w-9 h-9 rounded-xl flex items-center justify-center">
+              <i className="fa-solid fa-graduation-cap text-emerald-500 text-base"></i>
             </div>
-            <h4 className="font-extrabold text-slate-800 flex-1 m-0 text-base">
-              정기안전교육 현황 <small className="text-slate-400 font-medium text-xs ml-1">(금월 기준)</small>
+            <h4 className="font-black text-slate-800 flex-1 m-0 text-[15px] tracking-tight">
+              정기안전교육 현황 <small className="text-slate-400 font-semibold text-xs ml-1">(금월 기준)</small>
             </h4>
           </div>
 
@@ -94,14 +94,14 @@ export default function HomeDash({
         </div>
 
         {/* 2. TBM Status */}
-        <div className="content-card kpi-dashboard-card border border-gray-200/60 shadow-sm rounded-3xl bg-white overflow-hidden h-[340px] flex flex-col">
-          <div className="card-header-simple p-4 border-b border-gray-100 flex items-center justify-between shrink-0">
+        <div className="content-card kpi-dashboard-card border border-slate-200/80 shadow-sm rounded-[20px] bg-white overflow-hidden h-[340px] flex flex-col transition hover:shadow-md">
+          <div className="card-header-simple p-3.5 px-4 border-b border-gray-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="icon-box bg-purple-50 w-10 h-10 rounded-xl flex items-center justify-center">
-                <i className="fa-solid fa-comments text-purple-500 text-lg"></i>
+              <div className="icon-box bg-purple-50 w-9 h-9 rounded-xl flex items-center justify-center">
+                <i className="fa-solid fa-comments text-purple-500 text-base"></i>
               </div>
-              <h4 className="font-extrabold text-slate-800 m-0 text-base">
-                TBM 현황 <small className="text-slate-400 font-medium text-xs ml-1">(금일 기준)</small>
+              <h4 className="font-black text-slate-800 m-0 text-[15px] tracking-tight">
+                TBM 현황 <small className="text-slate-400 font-semibold text-xs ml-1">(금일 기준)</small>
               </h4>
             </div>
             <span onClick={() => openModal(notices?.[0]?.title || '공지사항', notices?.[0]?.content || '내용이 없습니다.')} className="cursor-pointer bg-purple-50 text-purple-600 hover:bg-purple-100 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5">
@@ -158,13 +158,13 @@ export default function HomeDash({
         </div>
 
         {/* 3. Legal Status */}
-        <div className="content-card kpi-dashboard-card border border-gray-200/60 shadow-sm rounded-3xl bg-white overflow-hidden flex flex-col h-[340px]">
-          <div className="card-header-simple p-4 border-b border-gray-100 flex items-center gap-3 shrink-0">
-            <div className="icon-box bg-blue-50 w-10 h-10 rounded-xl flex items-center justify-center">
-              <i className="fa-solid fa-gavel text-blue-500 text-lg"></i>
+        <div className="content-card kpi-dashboard-card border border-slate-200/80 shadow-sm rounded-[20px] bg-white overflow-hidden flex flex-col h-[340px] transition hover:shadow-md">
+          <div className="card-header-simple p-3.5 px-4 border-b border-gray-100 flex items-center gap-3 shrink-0">
+            <div className="icon-box bg-blue-50 w-9 h-9 rounded-xl flex items-center justify-center">
+              <i className="fa-solid fa-gavel text-blue-500 text-base"></i>
             </div>
-            <h4 className="font-extrabold text-slate-800 flex-1 m-0 text-base">
-              법정의무교육 현황 <small className="text-slate-400 font-medium text-xs ml-1">(금년 기준)</small>
+            <h4 className="font-black text-slate-800 flex-1 m-0 text-[15px] tracking-tight">
+              법정의무교육 현황 <small className="text-slate-400 font-semibold text-xs ml-1">(금년 기준)</small>
             </h4>
           </div>
 
@@ -220,13 +220,13 @@ export default function HomeDash({
       <section className="home-grid-bottom mt-5 grid grid-cols-1 lg:grid-cols-3 gap-5">
         
         {/* KOSHA News */}
-        <div className="content-card list-card border border-gray-200/60 shadow-sm rounded-3xl bg-white overflow-hidden flex flex-col h-[340px]">
-          <div className="card-header-simple p-4 border-b border-gray-100 flex items-center justify-between shrink-0">
+        <div className="content-card list-card border border-slate-200/80 shadow-sm rounded-[20px] bg-white overflow-hidden flex flex-col h-[340px] transition hover:shadow-md">
+          <div className="card-header-simple p-3.5 px-4 border-b border-gray-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
               <div className="icon-box bg-rose-50 w-9 h-9 rounded-xl flex items-center justify-center">
                 <i className="fa-solid fa-triangle-exclamation text-rose-500"></i>
               </div>
-              <h4 className="font-extrabold text-slate-800 m-0 text-base">사고 속보</h4>
+              <h4 className="font-black text-slate-800 m-0 text-[15px] tracking-tight">사고 속보</h4>
             </div>
             <span onClick={async () => {
               if (sirenCache) {
@@ -244,7 +244,7 @@ export default function HomeDash({
               } finally {
                 setIsSirenLoading(false);
               }
-            }} className="cursor-pointer text-[11px] font-bold bg-rose-50 hover:bg-rose-100 text-rose-600 px-2 py-1 rounded-lg border border-rose-100 flex items-center gap-1 transition">
+            }} className="cursor-pointer text-[11px] font-bold bg-rose-50 hover:bg-rose-100 text-rose-600 px-2.5 py-1 rounded-lg border border-rose-100 flex items-center gap-1 transition">
               {isSirenLoading ? (
                 <i className="fa-solid fa-spinner fa-spin text-rose-500"></i>
               ) : (
@@ -272,12 +272,12 @@ export default function HomeDash({
         </div>
 
         {/* Safety News */}
-        <div className="content-card list-card border border-gray-200/60 shadow-sm rounded-3xl bg-white overflow-hidden flex flex-col h-[340px]">
-          <div className="card-header-simple p-4 border-b border-gray-100 flex items-center gap-3 shrink-0">
+        <div className="content-card list-card border border-slate-200/80 shadow-sm rounded-[20px] bg-white overflow-hidden flex flex-col h-[340px] transition hover:shadow-md">
+          <div className="card-header-simple p-3.5 px-4 border-b border-gray-100 flex items-center gap-3 shrink-0">
             <div className="icon-box bg-slate-100 w-9 h-9 rounded-xl flex items-center justify-center">
               <i className="fa-solid fa-newspaper text-slate-500"></i>
             </div>
-            <h4 className="font-extrabold text-slate-800 m-0 text-base">최신 안전 뉴스</h4>
+            <h4 className="font-black text-slate-800 m-0 text-[15px] tracking-tight">최신 안전 뉴스</h4>
           </div>
           <div className="scroll-list overflow-y-auto flex-1 bg-white">
             {newsData?.safety?.map((news: any, i: number) => (
@@ -290,8 +290,8 @@ export default function HomeDash({
         </div>
 
         {/* Weather */}
-        <div className="content-card weather-card border border-gray-200/60 shadow-sm rounded-3xl bg-white overflow-hidden flex flex-col h-[340px]">
-          <div className="card-header-simple p-4 border-b border-gray-100 flex items-center justify-between shrink-0">
+        <div className="content-card weather-card border border-slate-200/80 shadow-sm rounded-[20px] bg-white overflow-hidden flex flex-col h-[340px] transition hover:shadow-md">
+          <div className="card-header-simple p-3.5 px-4 border-b border-gray-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
               <div className="icon-box bg-amber-50 w-9 h-9 rounded-xl flex items-center justify-center">
                 <i className="fa-solid fa-cloud-sun text-amber-500"></i>
