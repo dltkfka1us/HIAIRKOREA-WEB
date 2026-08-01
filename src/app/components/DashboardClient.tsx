@@ -181,50 +181,81 @@ export default function DashboardClient({
           }}
         >
           {modalTitle === '사고 속보' && modalExtra ? (
-            /* KOSHA Accident News Dark Modal */
-            <div className="bg-[#1e1e1e] rounded-[24px] p-6 max-w-[480px] w-full shadow-2xl space-y-5 border border-white/10 animate-in fade-in zoom-in-95 duration-200">
-              <div className="flex justify-between items-start pb-2 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-red-500 rounded-[16px] flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.5)]">
-                    <i className="fa-solid fa-triangle-exclamation text-white text-xl"></i>
+            /* KOSHA Accident News Modern Sleek Modal */
+            <div className="bg-white rounded-3xl p-6 md:p-7 max-w-[500px] w-full shadow-2xl space-y-5 border border-slate-200/80 animate-in fade-in zoom-in-95 duration-200">
+              {/* Modal Header */}
+              <div className="flex justify-between items-start pb-3 border-b border-slate-100">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 bg-rose-50 text-rose-600 border border-rose-100/80 rounded-2xl flex items-center justify-center shadow-xs">
+                    <i className="fa-solid fa-triangle-exclamation text-xl"></i>
                   </div>
                   <div>
-                    <h3 className="text-xl font-extrabold text-white tracking-tight">사고 속보</h3>
-                    <p className="text-[#a1a1aa] text-xs font-medium mt-0.5">KOSHA 산업재해 알림</p>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">사고 속보</h3>
+                      <span className="bg-rose-50 text-rose-600 border border-rose-200/80 text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">LIVE</span>
+                    </div>
+                    <p className="text-slate-400 text-xs font-semibold mt-0.5">안전보건공단 KOSHA 실시간 재해 정보</p>
                   </div>
                 </div>
-                <button onClick={() => setActiveModal(null)} className="w-8 h-8 rounded-full bg-white/5 text-white/50 hover:bg-white/10 hover:text-white flex items-center justify-center transition">✕</button>
+                <button 
+                  onClick={() => setActiveModal(null)} 
+                  className="w-8 h-8 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 hover:bg-slate-200 flex items-center justify-center font-bold text-sm transition"
+                >
+                  ✕
+                </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white/5 rounded-[16px] p-4 border border-white/5">
-                  <p className="text-xs text-[#a1a1aa] mb-1">발생일시</p>
-                  <p className="text-[15px] font-extrabold text-white">{modalExtra.timeInfo || '-'}</p>
+              {/* 4 Key KPI Grid Cards */}
+              <div className="grid grid-cols-2 gap-2.5">
+                <div className="bg-slate-50/80 rounded-2xl p-3.5 border border-slate-100">
+                  <p className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <i className="fa-regular fa-clock text-slate-400"></i> 발생일시
+                  </p>
+                  <p className="text-sm font-black text-slate-800">{modalExtra.timeInfo || '-'}</p>
                 </div>
-                <div className="bg-white/5 rounded-[16px] p-4 border border-white/5">
-                  <p className="text-xs text-[#a1a1aa] mb-1">발생장소</p>
-                  <p className="text-[15px] font-extrabold text-white">{modalExtra.fullLoc || modalExtra.loc || '-'}</p>
+
+                <div className="bg-slate-50/80 rounded-2xl p-3.5 border border-slate-100">
+                  <p className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <i className="fa-solid fa-location-dot text-slate-400"></i> 발생장소
+                  </p>
+                  <p className="text-sm font-black text-slate-800 truncate">{modalExtra.fullLoc || modalExtra.loc || '-'}</p>
                 </div>
-                <div className="bg-white/5 rounded-[16px] p-4 border border-white/5">
-                  <p className="text-xs text-[#a1a1aa] mb-1">사고형태</p>
-                  <p className="text-[15px] font-extrabold text-white">{modalExtra.type || '-'}</p>
+
+                <div className="bg-slate-50/80 rounded-2xl p-3.5 border border-slate-100">
+                  <p className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <i className="fa-solid fa-[#1e88e5] fa-circle-info text-blue-500"></i> 사고형태
+                  </p>
+                  <p className="text-sm font-black text-slate-800">{modalExtra.type || '-'}</p>
                 </div>
-                <div className="bg-red-500/10 rounded-[16px] p-4 border border-red-500/20">
-                  <p className="text-xs text-red-300 mb-1">피해현황</p>
-                  <p className="text-[15px] font-extrabold text-red-500">{modalExtra.casualty || '-'}</p>
+
+                <div className="bg-rose-50/80 rounded-2xl p-3.5 border border-rose-200/80">
+                  <p className="text-[11px] font-extrabold text-rose-500 uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <i className="fa-solid fa-[#e53e3e] fa-[#e53e3e] fa-user-slash text-rose-500"></i> 피해현황
+                  </p>
+                  <p className="text-sm font-black text-rose-600">{modalExtra.casualty || '-'}</p>
                 </div>
               </div>
 
-              <div className="space-y-2 pt-2">
-                <p className="text-[#a1a1aa] text-xs font-bold flex items-center gap-1.5"><i className="fa-solid fa-align-left"></i> 상세 내용</p>
-                <div className="bg-black/40 rounded-[16px] p-5 border border-white/5">
-                  <p className="text-[15px] leading-relaxed text-white font-medium">{modalContent}</p>
+              {/* Detailed Summary Text */}
+              <div className="space-y-1.5">
+                <p className="text-xs font-black text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <i className="fa-solid fa-align-left text-slate-400"></i> 재해 상세 개요
+                </p>
+                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                  <p className="text-[14px] leading-relaxed text-slate-800 font-bold tracking-tight">{modalContent}</p>
                 </div>
               </div>
 
+              {/* Action Link CTA Button */}
               {modalLink && (
-                <a href={modalLink} target="_blank" rel="noopener noreferrer" className="mt-4 block w-full py-4 bg-gradient-to-r from-red-600 to-red-500 text-white text-center rounded-[16px] font-extrabold text-[15px] shadow-lg shadow-red-500/20 hover:scale-[0.98] transition" onClick={() => setActiveModal(null)}>
-                  <i className="fa-solid fa-arrow-up-right-from-square mr-2"></i> 원문 보기
+                <a 
+                  href={modalLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-full py-3.5 bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-700 hover:to-rose-600 text-white text-center rounded-2xl font-black text-sm shadow-md shadow-rose-500/20 transition flex items-center justify-center gap-2 active:scale-[0.98]" 
+                  onClick={() => setActiveModal(null)}
+                >
+                  <i className="fa-solid fa-arrow-up-right-from-square text-xs"></i> KOSHA 원문 게시물 이동
                 </a>
               )}
             </div>
