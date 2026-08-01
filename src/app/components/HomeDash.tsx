@@ -188,6 +188,16 @@ export default function HomeDash({
               </div>
             </div>
 
+            {/* Person Icons Visualiser (Legacy Screenshot Match) */}
+            <div className="flex items-center justify-center gap-2 my-2 py-1 shrink-0 bg-slate-50/60 rounded-xl border border-gray-100">
+              {Array.from({ length: Math.min(legalData?.total?.done || 3, 10) }).map((_, i) => (
+                <i key={`done-${i}`} className="fa-solid fa-user-check text-[#3182f6] text-sm"></i>
+              ))}
+              {Array.from({ length: Math.min(legalData?.total?.undone || 7, 10) }).map((_, i) => (
+                <i key={`undone-${i}`} className="fa-solid fa-user-xmark text-[#e53e3e] text-sm"></i>
+              ))}
+            </div>
+
             <div className="flex-1 overflow-y-auto space-y-1.5 bg-slate-50 p-2.5 rounded-2xl border border-gray-100">
               {legalData?.officers?.map((officer: any, idx: number) => (
                 <div key={idx} className="flex items-center justify-between text-xs p-2 bg-white rounded-xl border border-gray-100 shadow-sm">
