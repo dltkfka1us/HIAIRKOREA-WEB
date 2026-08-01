@@ -264,7 +264,7 @@ export default function HomeDash({
                     <span className="text-[#3182f6] font-extrabold mr-1">[{locText}]</span>
                     {item.text}
                   </span>
-                  <span className="text-[12px] font-extrabold text-[#e53e3e] shrink-0 font-mono tracking-tight">{tagText}</span>
+                  <span className="text-[13px] font-extrabold text-[#e53e3e] shrink-0">{tagText}</span>
                 </a>
               );
             })}
@@ -283,7 +283,7 @@ export default function HomeDash({
             {newsData?.safety?.map((news: any, i: number) => (
               <a key={i} href={news.link} target="_blank" rel="noopener noreferrer" className="flex justify-between items-center px-4 py-3 border-b border-gray-100 hover:bg-slate-50 cursor-pointer transition group">
                 <span className="font-semibold text-slate-700 text-[13px] truncate max-w-[80%] group-hover:text-blue-600">{news.title}</span>
-                <span className="text-[11px] text-slate-400 font-mono shrink-0">{news.date}</span>
+                <span className="text-[12px] font-semibold text-slate-400 shrink-0">{news.date}</span>
               </a>
             ))}
           </div>
