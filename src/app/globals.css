@@ -50,6 +50,11 @@ body {
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif !important;
 }
 
+/* FontAwesome Icons Font Preservation */
+.fa-solid, .fa-regular, .fa-brands, .fa, [class*="fa-"], [class*="fa-"]::before, [class*="fa-"]::after {
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+}
+
 /* 토스 스타일 카드 */
 .toss-card {
   background: var(--toss-card);
