@@ -130,24 +130,40 @@ function shortenLoc(fullLoc: string) {
 }
 
 const FALLBACK_KOSHA_NEWS = [
-  { loc: "경북 구미", fullLoc: "경북 구미시", type: "추락 사고", timeInfo: "2026-07-28", casualty: "추락 사고", content: "칼라강판 덧씌우기 작업 중 밟고 있던 채광창이 파손되며 바닥으로 떨어져 사망함.", text: "칼라강판 덧씌우기 작업 중 채광창 파손으로 떨어짐", tag: "추락 사고", link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
-  { loc: "경남 함양", fullLoc: "경남 함양군", type: "끼임 사고", timeInfo: "2026-07-28", casualty: "끼임 사고", content: "설비 내 슬러지 제거 작업 중 설비가 갑자기 가동되어 스크류에 끼임 사망함.", text: "설비 내 슬러지 제거 작업 중 스크류 끼임 사고", tag: "끼임 사고", link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
-  { loc: "경북 경주", fullLoc: "경북 경주시", type: "추락 사고", timeInfo: "2026-07-27", casualty: "추락 사고", content: "철골 위에서 철골 조립 작업 중 균형을 잃고 아래로 떨어짐.", text: "철골 조립 작업 중 바닥으로 떨어짐", tag: "추락 사고", link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
-  { loc: "경북 포항", fullLoc: "경북 포항시", type: "추락 사고", timeInfo: "2026-07-27", casualty: "추락 사고", content: "철거 공사현장에서 배관을 밟고 이동 중 미끄러져 바닥으로 떨어짐.", text: "배관 이동 중 미끄러져 바닥으로 떨어짐", tag: "추락 사고", link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
-  { loc: "전남 순천", fullLoc: "전남 순천시", type: "추락 사고", timeInfo: "2026-07-26", casualty: "추락 사고", content: "풍력발전기 기둥 용접을 위해 작업발판 위에서 작업 중 떨어짐.", text: "풍력발전기 용접 작업발판 위에서 떨어짐", tag: "추락 사고", link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" }
+  { loc: "경북 구미시", fullLoc: "경북 구미시", type: "산업재해", timeInfo: "2026-07-28", casualty: "사망 1명", content: "칼라강판 덧씌우기 작업 중 밟고 있던 채광창이 파손되며 바닥으로 떨어져 사망함.", text: "칼라강판 덧씌우기 작업 중 밟고 있던 채광창이 파손되며 떨어짐", tag: "사망 1명", dateNum: 20260728, link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
+  { loc: "경남 함양군", fullLoc: "경남 함양군", type: "산업재해", timeInfo: "2026-07-28", casualty: "사망 1명", content: "설비 내 슬러지 제거 작업 중 설비가 갑자기 가동되어 스크류에 끼임 사망함.", text: "설비 내 슬러지 제거 작업 중 설비가 갑자기 가동되어 스크류에 끼임", tag: "사망 1명", dateNum: 20260728, link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
+  { loc: "경북 경주시", fullLoc: "경북 경주시", type: "산업재해", timeInfo: "2026-07-27", casualty: "사망 1명", content: "철골 위에서 철골 조립 작업 중 균형을 잃고 아래로 떨어짐.", text: "철골 위에서 철골 조립 작업 중 떨어짐", tag: "사망 1명", dateNum: 20260727, link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
+  { loc: "경북 포항시", fullLoc: "경북 포항시", type: "산업재해", timeInfo: "2026-07-27", casualty: "사망 1명", content: "철거 공사현장에서 배관을 밟고 이동 중 미끄러져 바닥으로 떨어짐.", text: "철거 공사현장에서 철거 작업을 위해 배관을 밟고 이동 중 바닥으로 떨어짐", tag: "사망 1명", dateNum: 20260727, link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
+  { loc: "전남 순천시", fullLoc: "전남 순천시", type: "산업재해", timeInfo: "2026-07-26", casualty: "사망 1명", content: "풍력발전기 기둥 용접을 위해 작업발판 위에서 작업 중 떨어짐.", text: "풍력발전기 기둥 용접을 위해 작업발판 위에서 작업 중 떨어짐", tag: "사망 1명", dateNum: 20260726, link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" },
+  { loc: "경기 김포시", fullLoc: "경기 김포시", type: "산업재해", timeInfo: "2026-07-25", casualty: "사망 1명", content: "지붕 판넬 해체 작업 중 해체된 판넬을 잡으려다 고소작업대에서 떨어짐.", text: "지붕 판넬 해체 작업 중 해체된 판넬을 잡으려다 고소작업대에서 떨어짐", tag: "사망 1명", dateNum: 20260725, link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01" }
 ];
 
 function parseTitleRegex(title: string) {
   let location = "전국";
   let dateStr = "";
-  let accidentType = "속보";
+  let month = 0;
+  let day = 0;
   let cleanTitle = title;
+  let casualty = "사망 1명"; // KOSHA 중대재해 속보 기본값
+
+  // Extract Casualty if explicitly present (e.g. 사망 2명, 부상 1명)
+  const casMatch = title.match(/(사망\s*\d+명|부상\s*\d+명)/);
+  if (casMatch) {
+    casualty = casMatch[1];
+  }
 
   // Pattern: [7/28, 경북 구미시] or [7/26, 전남광주 순천시]
-  const matchHeader = title.match(/^\[\s*(\d{1,2}\/\d{1,2})\s*,\s*([^\]]+)\]/);
+  const matchHeader = title.match(/^\[\s*(\d{1,2})\/(\d{1,2})\s*,\s*([^\]]+)\]/);
   if (matchHeader) {
-    dateStr = matchHeader[1];
-    location = matchHeader[2].trim();
+    month = parseInt(matchHeader[1], 10);
+    day = parseInt(matchHeader[2], 10);
+    dateStr = `${month}/${day}`;
+    location = matchHeader[3]
+      .replace(/전남광주/, "전남")
+      .replace(/전북전주/, "전북")
+      .replace(/경북대구/, "경북")
+      .replace(/경남부산/, "경남")
+      .trim();
     cleanTitle = title.replace(matchHeader[0], '').trim();
   } else {
     const locMatch = title.match(/\[([^\]]+)\]/);
@@ -157,34 +173,22 @@ function parseTitleRegex(title: string) {
     }
   }
 
-  // Shorten location
-  let shortLoc = location
-    .replace(/전남광주/, "전남 순천")
-    .replace(/전북전주/, "전북 전주")
-    .replace(/경북대구/, "경북")
-    .replace(/경남부산/, "경남")
-    .replace(/시$|군$|구$/g, '')
-    .trim();
+  // Full location formatted like "경북 구미시", "경남 함양군"
+  let fullLoc = location;
+  if (!fullLoc.includes('시') && !fullLoc.includes('군') && !fullLoc.includes('구')) {
+    fullLoc = location;
+  }
 
-  if (!shortLoc) shortLoc = "전국";
-
-  // Determine accident type & tag
-  if (cleanTitle.includes('끼임')) accidentType = '끼임 사고';
-  else if (cleanTitle.includes('떨어짐') || cleanTitle.includes('추락')) accidentType = '추락 사고';
-  else if (cleanTitle.includes('쓰러짐') || cleanTitle.includes('질식')) accidentType = '질식/쓰러짐';
-  else if (cleanTitle.includes('맞음') || cleanTitle.includes('낙하')) accidentType = '낙하/맞음';
-  else if (cleanTitle.includes('부딪힘') || cleanTitle.includes('충돌')) accidentType = '충돌/부딪힘';
-  else if (cleanTitle.includes('화재') || cleanTitle.includes('폭발')) accidentType = '화재/폭발';
-  else if (cleanTitle.includes('깔림') || cleanTitle.includes('무너짐')) accidentType = '붕괴/깔림';
-  else accidentType = dateStr ? `${dateStr} 발생` : '속보';
+  // Calculate sort score (newer date first)
+  const sortScore = (month * 100) + day;
 
   return { 
-    shortLoc, 
-    fullLoc: location, 
+    loc: fullLoc, 
+    fullLoc, 
     dateStr, 
-    accidentType, 
+    sortScore,
     cleanTitle: cleanTitle || title,
-    tag: accidentType 
+    tag: casualty 
   };
 }
 
@@ -196,31 +200,35 @@ export async function getKoshaRealtimeNews() {
       return FALLBACK_KOSHA_NEWS;
     }
 
-    const topList = list.slice(0, 10);
-    const results = topList.map((post: any) => {
+    const results = list.map((post: any) => {
       const title = post.pstNm || '';
-      const regDate = post.frstRegDt ? `${post.frstRegDt.slice(4,6)}-${post.frstRegDt.slice(6,8)}` : '';
+      const regDate = post.frstRegDt ? post.frstRegDt : '';
       const parsed = parseTitleRegex(title);
 
       return {
-        loc: parsed.shortLoc,
+        loc: parsed.loc,
         fullLoc: parsed.fullLoc,
-        type: parsed.accidentType,
-        timeInfo: parsed.dateStr ? `2026-${parsed.dateStr.replace('/', '-')}` : (regDate ? `2026-${regDate}` : "최신"),
-        casualty: parsed.accidentType,
+        type: "산업재해",
+        timeInfo: parsed.dateStr ? `2026-${parsed.dateStr.replace('/', '-')}` : (regDate ? regDate.slice(0, 10) : "최신"),
+        casualty: parsed.tag,
         content: title,
         text: parsed.cleanTitle,
-        tag: parsed.tag,
+        tag: parsed.tag, // '사망 1명'
+        sortScore: parsed.sortScore || (regDate ? parseInt(regDate.slice(4, 8), 10) : 0),
         link: "https://portal.kosha.or.kr/archive/imprtnDsstrAlrame/CSADV50000/CSADV50000M01"
       };
     });
 
-    return results.length > 0 ? results : FALLBACK_KOSHA_NEWS;
+    // 최신순 정렬 (sortScore 내림차순)
+    results.sort((a: any, b: any) => b.sortScore - a.sortScore);
+
+    return results.slice(0, 10);
   } catch (e) {
     console.error("getKoshaRealtimeNews err:", e);
     return FALLBACK_KOSHA_NEWS;
   }
 }
+
 
 
 

@@ -245,18 +245,16 @@ export default function HomeDash({
           </div>
           <div className="scroll-list overflow-y-auto flex-1 bg-white">
             {newsData?.kosha?.map((item: any, i: number) => {
-              const displayTag = (!item.tag || item.tag === '확인중') 
-                ? (item.type && item.type !== '산업재해' ? item.type : '사고속보') 
-                : item.tag;
-              const displayLoc = (item.loc && item.loc.trim() !== '') ? item.loc : '전국';
+              const tagText = item.tag || '사망 1명';
+              const locText = item.loc || '전국';
 
               return (
-                <a key={i} href={item.link || '#'} onClick={(e) => { e.preventDefault(); openModal('사고 속보', item.text, item.link, item); }} className="flex justify-between items-center px-4 py-2.5 border-b border-gray-100 hover:bg-slate-50 cursor-pointer transition group">
-                  <div className="font-bold text-slate-800 text-[13px] truncate max-w-[76%] pr-2 group-hover:text-blue-700 transition-colors flex items-center gap-1.5">
-                    <span className="text-[#3182f6] bg-blue-50 px-1.5 py-0.5 rounded text-[11px] font-black shrink-0">[{displayLoc}]</span>
-                    <span className="truncate">{item.text}</span>
-                  </div>
-                  <span className="text-[11px] font-extrabold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100 shrink-0">{displayTag}</span>
+                <a key={i} href={item.link || '#'} onClick={(e) => { e.preventDefault(); openModal('사고 속보', item.text, item.link, item); }} className="flex justify-between items-center px-4 py-3 border-b border-gray-100 hover:bg-slate-50 cursor-pointer transition group">
+                  <span className="font-extrabold text-slate-800 text-[13px] truncate max-w-[80%] pr-2 group-hover:text-blue-600 transition-colors">
+                    <span className="text-[#3182f6] font-extrabold mr-1">[{locText}]</span>
+                    {item.text}
+                  </span>
+                  <span className="text-[12px] font-extrabold text-[#e53e3e] shrink-0 font-mono tracking-tight">{tagText}</span>
                 </a>
               );
             })}
