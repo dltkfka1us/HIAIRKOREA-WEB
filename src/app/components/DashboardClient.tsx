@@ -64,8 +64,8 @@ export default function DashboardClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f6f9] p-4 md:p-8 text-[#2c3e50] relative">
-      <div className="max-w-[1400px] mx-auto space-y-5">
+    <div className="min-h-screen bg-[#f4f6f9] p-4 md:p-6 lg:p-8 text-[#2c3e50] relative">
+      <div className="max-w-[1720px] w-full mx-auto space-y-5">
         
         {/* Row 0: Original Header (Branding & Slogan & Non-Disaster Counter) */}
         <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-2 gap-4 relative">
@@ -87,22 +87,22 @@ export default function DashboardClient({
           </div>
 
           <div className="flex flex-wrap items-center gap-3 ml-auto">
-            <div className="flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-xl border border-gray-200 shadow-sm">
+            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl border border-gray-200/80 shadow-sm">
               <span className="text-xs font-bold text-[#64748b]">무재해</span>
               <div className="flex gap-1 text-sm font-black">
-                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">1</span>
-                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">9</span>
-                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">7</span>
-                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">4</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded-md">1</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded-md">9</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded-md">7</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded-md">4</span>
               </div>
               <span className="text-xs font-bold text-[#1e293b]">일</span>
             </div>
 
-            <div className="flex items-center gap-2 text-[#64748b] text-sm bg-white p-1.5 rounded-xl border border-gray-200 shadow-sm">
-              <button title="시약 관리" className="p-1.5 hover:text-[#1e88e5] hover:bg-gray-100 rounded-lg transition"><i className="fa-solid fa-flask"></i></button>
-              <button title="일정 관리" className="p-1.5 hover:text-[#1e88e5] hover:bg-gray-100 rounded-lg transition"><i className="fa-solid fa-calendar-days"></i></button>
-              <button title="즐겨찾기" className="p-1.5 hover:text-[#1e88e5] hover:bg-gray-100 rounded-lg transition"><i className="fa-solid fa-bookmark"></i></button>
-              <button onClick={() => openModal('관리자 로그인', '관리자 전용 인증 화면입니다.')} title="관리자 로그인" className="p-1.5 hover:text-[#1e88e5] hover:bg-gray-100 rounded-lg transition"><i className="fa-solid fa-key"></i></button>
+            <div className="flex items-center gap-1.5 text-[#64748b] text-sm bg-white p-2 rounded-2xl border border-gray-200/80 shadow-sm">
+              <button title="시약 관리" className="p-1.5 px-2 hover:text-[#1e88e5] hover:bg-slate-50 rounded-xl transition"><i className="fa-solid fa-flask text-slate-600"></i></button>
+              <button title="일정 관리" className="p-1.5 px-2 hover:text-[#1e88e5] hover:bg-slate-50 rounded-xl transition"><i className="fa-solid fa-calendar-days text-slate-600"></i></button>
+              <button title="즐겨찾기" className="p-1.5 px-2 hover:text-[#1e88e5] hover:bg-slate-50 rounded-xl transition"><i className="fa-solid fa-bookmark text-slate-600"></i></button>
+              <button onClick={() => openModal('관리자 로그인', '관리자 전용 인증 화면입니다.')} title="관리자 로그인" className="p-1.5 px-2 hover:text-[#1e88e5] hover:bg-slate-50 rounded-xl transition"><i className="fa-solid fa-key text-slate-600"></i></button>
             </div>
           </div>
         </header>
