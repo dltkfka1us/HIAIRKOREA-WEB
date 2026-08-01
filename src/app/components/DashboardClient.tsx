@@ -50,6 +50,18 @@ export default function DashboardClient({
 
   useEffect(() => {
     setCurrentSlogan(SLOGANS[Math.floor(Math.random() * SLOGANS.length)]);
+
+    function applyLegacyZoom() {
+      if (window.innerWidth <= 768) {
+        document.documentElement.style.zoom = '1';
+        return;
+      }
+      const z = Math.min(1.2, Math.max(0.9, window.innerWidth / 1500));
+      document.documentElement.style.zoom = String(z);
+    }
+    applyLegacyZoom();
+    window.addEventListener('resize', applyLegacyZoom);
+    return () => window.removeEventListener('resize', applyLegacyZoom);
   }, []);
 
   const { eduData, tbmData, legalData, notices, weatherData, newsData } = initialData;
