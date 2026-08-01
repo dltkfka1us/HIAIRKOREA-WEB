@@ -66,7 +66,7 @@ export default function DashboardClient({
 
   return (
     <div className="min-h-screen bg-[#f4f6f9] p-3 md:p-5 lg:p-6 text-[#2c3e50] relative">
-      <div className="max-w-[1600px] w-full mx-auto space-y-4">
+      <div className="max-w-[1500px] w-full mx-auto space-y-4">
         
         {/* Row 0: Original Header (Branding & Slogan & Non-Disaster Counter) */}
         <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-1 gap-3 relative">
