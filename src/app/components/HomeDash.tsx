@@ -34,15 +34,15 @@ export default function HomeDash({
       <section className="home-grid-top">
         
         {/* 1. Education Status */}
-        <div className="content-card kpi-dashboard-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
-          <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
+        <div className="content-card kpi-dashboard-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border border-slate-100 transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
+          <div className="pro-card-header -mx-6 -mt-6 p-4 px-6 bg-slate-50/70 rounded-t-3xl border-b border-slate-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#3182f6] border border-blue-100/80 flex items-center justify-center text-sm shadow-2xs">
+              <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center text-sm shadow-md shadow-blue-500/20">
                 <i className="fa-solid fa-graduation-cap"></i>
               </div>
-              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">정기안전교육 현황</h4>
+              <h4 className="font-extrabold text-slate-800 m-0 text-[15px] tracking-tight">정기안전교육 현황</h4>
             </div>
-            <span className="text-[11px] font-bold text-[#6b7684] bg-[#f2f4f6] px-2.5 py-0.5 rounded-full">금월 기준</span>
+            <span className="text-[11px] font-bold text-slate-500 bg-white border border-slate-200/80 px-2.5 py-1 rounded-full shadow-2xs">금월 기준</span>
           </div>
 
           <div className="home-card-content loaded flex-1 flex flex-col justify-between pt-4" id="home-edu-content">
@@ -92,15 +92,15 @@ export default function HomeDash({
         </div>
 
         {/* 2. TBM Status */}
-        <div className="content-card kpi-dashboard-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
-          <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
+        <div className="content-card kpi-dashboard-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border border-slate-100 transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
+          <div className="pro-card-header -mx-6 -mt-6 p-4 px-6 bg-slate-50/70 rounded-t-3xl border-b border-slate-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 border border-purple-100/80 flex items-center justify-center text-sm shadow-2xs">
+              <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center text-sm shadow-md shadow-purple-500/20">
                 <i className="fa-solid fa-comments"></i>
               </div>
-              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">TBM 현황</h4>
+              <h4 className="font-extrabold text-slate-800 m-0 text-[15px] tracking-tight">TBM 현황</h4>
             </div>
-            <span onClick={() => openModal(notices?.[0]?.title || '공지사항', notices?.[0]?.content || '내용이 없습니다.')} className="cursor-pointer bg-purple-50 text-purple-600 hover:bg-purple-100 border border-purple-200/60 px-2.5 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-2xs">
+            <span onClick={() => openModal(notices?.[0]?.title || '공지사항', notices?.[0]?.content || '내용이 없습니다.')} className="cursor-pointer bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 shadow-xs">
               <i className="fa-solid fa-bullhorn text-xs"></i> 공지사항
             </span>
           </div>
@@ -152,15 +152,15 @@ export default function HomeDash({
         </div>
 
         {/* 3. Legal Status */}
-        <div className="content-card kpi-dashboard-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
-          <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
+        <div className="content-card kpi-dashboard-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border border-slate-100 transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
+          <div className="pro-card-header -mx-6 -mt-6 p-4 px-6 bg-slate-50/70 rounded-t-3xl border-b border-slate-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100/80 flex items-center justify-center text-sm shadow-2xs">
+              <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white flex items-center justify-center text-sm shadow-md shadow-emerald-500/20">
                 <i className="fa-solid fa-gavel"></i>
               </div>
-              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">법정의무교육 현황</h4>
+              <h4 className="font-extrabold text-slate-800 m-0 text-[15px] tracking-tight">법정의무교육 현황</h4>
             </div>
-            <span className="text-[11px] font-bold text-[#6b7684] bg-[#f2f4f6] px-2.5 py-0.5 rounded-full">금년 기준</span>
+            <span className="text-[11px] font-bold text-slate-500 bg-white border border-slate-200/80 px-2.5 py-1 rounded-full shadow-2xs">금년 기준</span>
           </div>
 
           <div className="home-card-content loaded flex flex-col flex-1 overflow-hidden pt-4" id="home-legal-content">
@@ -215,13 +215,13 @@ export default function HomeDash({
       <section className="home-grid-bottom mt-5 grid grid-cols-1 lg:grid-cols-3 gap-5">
         
         {/* KOSHA News */}
-        <div className="content-card list-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
-          <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
+        <div className="content-card list-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border border-slate-100 transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
+          <div className="pro-card-header -mx-6 -mt-6 p-4 px-6 bg-slate-50/70 rounded-t-3xl border-b border-slate-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-rose-50 text-[#f04452] border border-rose-100/80 flex items-center justify-center text-sm shadow-2xs">
+              <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-rose-500 to-rose-600 text-white flex items-center justify-center text-sm shadow-md shadow-rose-500/20">
                 <i className="fa-solid fa-triangle-exclamation"></i>
               </div>
-              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">사고 속보</h4>
+              <h4 className="font-extrabold text-slate-800 m-0 text-[15px] tracking-tight">사고 속보</h4>
             </div>
             <span onClick={async () => {
               if (sirenCache) {
@@ -239,11 +239,11 @@ export default function HomeDash({
               } finally {
                 setIsSirenLoading(false);
               }
-            }} className="cursor-pointer text-xs font-bold bg-rose-50 text-[#f04452] hover:bg-rose-100 border border-rose-200/60 px-2.5 py-1 rounded-xl transition flex items-center gap-1.5 shadow-2xs">
+            }} className="cursor-pointer bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 shadow-xs">
               {isSirenLoading ? (
-                <i className="fa-solid fa-spinner fa-spin text-[#f04452]"></i>
+                <i className="fa-solid fa-spinner fa-spin text-white"></i>
               ) : (
-                <i className="fa-solid fa-bell text-[#f04452] text-xs"></i>
+                <i className="fa-solid fa-bell text-white text-xs"></i>
               )}
               {isSirenLoading ? ' 불러오는 중...' : ' 사이렌 알림'}
             </span>
@@ -267,13 +267,13 @@ export default function HomeDash({
         </div>
 
         {/* Safety News */}
-        <div className="content-card list-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
-          <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
+        <div className="content-card list-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border border-slate-100 transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
+          <div className="pro-card-header -mx-6 -mt-6 p-4 px-6 bg-slate-50/70 rounded-t-3xl border-b border-slate-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100/80 flex items-center justify-center text-sm shadow-2xs">
+              <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-600 text-white flex items-center justify-center text-sm shadow-md shadow-indigo-500/20">
                 <i className="fa-solid fa-newspaper"></i>
               </div>
-              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">최신 안전 뉴스</h4>
+              <h4 className="font-extrabold text-slate-800 m-0 text-[15px] tracking-tight">최신 안전 뉴스</h4>
             </div>
           </div>
           <div className="scroll-list overflow-y-auto flex-1 divide-y divide-[#f2f4f6] pt-1">
@@ -287,15 +287,15 @@ export default function HomeDash({
         </div>
 
         {/* Weather - Toss Style */}
-        <div className="content-card weather-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
-          <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
+        <div className="content-card weather-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border border-slate-100 transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
+          <div className="pro-card-header -mx-6 -mt-6 p-4 px-6 bg-slate-50/70 rounded-t-3xl border-b border-slate-100 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-amber-50 text-[#ff9500] border border-amber-100/80 flex items-center justify-center text-sm shadow-2xs">
+              <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 text-white flex items-center justify-center text-sm shadow-md shadow-amber-500/20">
                 <i className="fa-solid fa-cloud-sun"></i>
               </div>
-              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">날씨 정보</h4>
+              <h4 className="font-extrabold text-slate-800 m-0 text-[15px] tracking-tight">날씨 정보</h4>
             </div>
-            <span className="text-[11px] font-bold text-[#6b7684] bg-[#f2f4f6] px-2.5 py-0.5 rounded-full flex items-center gap-1">
+            <span className="text-[11px] font-bold text-slate-600 bg-white border border-slate-200/80 px-2.5 py-1 rounded-full shadow-2xs flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               실시간
             </span>
