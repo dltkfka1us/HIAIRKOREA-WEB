@@ -50,18 +50,7 @@ export default function DashboardClient({
 
   useEffect(() => {
     setCurrentSlogan(SLOGANS[Math.floor(Math.random() * SLOGANS.length)]);
-
-    function applyLegacyZoom() {
-      if (window.innerWidth <= 768) {
-        document.documentElement.style.zoom = '1';
-        return;
-      }
-      const z = Math.min(1.2, Math.max(0.9, window.innerWidth / 1500));
-      document.documentElement.style.zoom = String(z);
-    }
-    applyLegacyZoom();
-    window.addEventListener('resize', applyLegacyZoom);
-    return () => window.removeEventListener('resize', applyLegacyZoom);
+    document.documentElement.style.zoom = '1';
   }, []);
 
   const { eduData, tbmData, legalData, notices, weatherData, newsData } = initialData;
@@ -76,51 +65,51 @@ export default function DashboardClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f6f9] p-4 md:p-6 lg:p-8 text-[#2c3e50] relative">
-      <div className="max-w-[1500px] w-full mx-auto space-y-6">
+    <div className="min-h-screen bg-[#f4f6f9] p-3 md:p-5 lg:p-6 text-[#2c3e50] relative">
+      <div className="max-w-[1440px] w-full mx-auto space-y-4">
         
         {/* Row 0: Original Header (Branding & Slogan & Non-Disaster Counter) */}
-        <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-2 gap-4 relative">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6">
-            <div className="flex items-center gap-3.5 shrink-0">
-              <img src="https://i.imgur.com/8wvWwyX.png" alt="Company Logo" className="h-[38px] object-contain" />
-              <h1 className="text-[1.35rem] font-black text-[#1e293b] tracking-tight">
+        <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-1 gap-3 relative">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-5">
+            <div className="flex items-center gap-3 shrink-0">
+              <img src="https://i.imgur.com/8wvWwyX.png" alt="Company Logo" className="h-[34px] object-contain" />
+              <h1 className="text-[1.2rem] font-extrabold text-[#1e293b] tracking-tight">
                 Safety and Health Management System
               </h1>
             </div>
             
             {/* Separator & Slogan */}
-            <div className="hidden lg:flex items-center gap-6">
-              <div className="w-[1px] h-5 bg-gray-300"></div>
-              <div className="text-[14px] font-semibold text-slate-500 whitespace-nowrap">
+            <div className="hidden lg:flex items-center gap-4">
+              <div className="w-[1px] h-4 bg-gray-300"></div>
+              <div className="text-[13px] font-medium text-slate-500 whitespace-nowrap">
                 {currentSlogan}
               </div>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 ml-auto">
-            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl border border-gray-200/80 shadow-sm">
-              <span className="text-xs font-bold text-[#64748b]">무재해</span>
-              <div className="flex gap-1.5 text-base font-black">
-                <span className="bg-[#1e293b] text-white px-2.5 py-0.5 rounded-md">1</span>
-                <span className="bg-[#1e293b] text-white px-2.5 py-0.5 rounded-md">9</span>
-                <span className="bg-[#1e293b] text-white px-2.5 py-0.5 rounded-md">7</span>
-                <span className="bg-[#1e293b] text-white px-2.5 py-0.5 rounded-md">4</span>
+          <div className="flex flex-wrap items-center gap-2.5 ml-auto">
+            <div className="flex items-center gap-1.5 bg-white px-3.5 py-1.5 rounded-xl border border-gray-200/80 shadow-sm">
+              <span className="text-xs font-semibold text-[#64748b]">무재해</span>
+              <div className="flex gap-1 text-sm font-bold">
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">1</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">9</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">7</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">4</span>
               </div>
-              <span className="text-xs font-bold text-[#1e293b]">일</span>
+              <span className="text-xs font-semibold text-[#1e293b]">일</span>
             </div>
 
-            <div className="flex items-center gap-2 text-[#64748b] text-base bg-white p-2 px-2.5 rounded-2xl border border-gray-200/80 shadow-sm">
-              <button title="시약 관리" className="p-2 hover:text-[#1e88e5] hover:bg-slate-50 rounded-xl transition"><i className="fa-solid fa-flask text-slate-600 text-base"></i></button>
-              <button title="일정 관리" className="p-2 hover:text-[#1e88e5] hover:bg-slate-50 rounded-xl transition"><i className="fa-solid fa-calendar-days text-slate-600 text-base"></i></button>
-              <button title="즐겨찾기" className="p-2 hover:text-[#1e88e5] hover:bg-slate-50 rounded-xl transition"><i className="fa-solid fa-bookmark text-slate-600 text-base"></i></button>
-              <button onClick={() => openModal('관리자 로그인', '관리자 전용 인증 화면입니다.')} title="관리자 로그인" className="p-2 hover:text-[#1e88e5] hover:bg-slate-50 rounded-xl transition"><i className="fa-solid fa-key text-slate-600 text-base"></i></button>
+            <div className="flex items-center gap-1 text-[#64748b] text-sm bg-white p-1.5 px-2 rounded-xl border border-gray-200/80 shadow-sm">
+              <button title="시약 관리" className="p-1.5 hover:text-[#1e88e5] hover:bg-slate-50 rounded-lg transition"><i className="fa-solid fa-flask text-slate-600 text-sm"></i></button>
+              <button title="일정 관리" className="p-1.5 hover:text-[#1e88e5] hover:bg-slate-50 rounded-lg transition"><i className="fa-solid fa-calendar-days text-slate-600 text-sm"></i></button>
+              <button title="즐겨찾기" className="p-1.5 hover:text-[#1e88e5] hover:bg-slate-50 rounded-lg transition"><i className="fa-solid fa-bookmark text-slate-600 text-base"></i></button>
+              <button onClick={() => openModal('관리자 로그인', '관리자 전용 인증 화면입니다.')} title="관리자 로그인" className="p-1.5 hover:text-[#1e88e5] hover:bg-slate-50 rounded-lg transition"><i className="fa-solid fa-key text-slate-600 text-sm"></i></button>
             </div>
           </div>
         </header>
 
         {/* Row 0.5: Navigation Bar */}
-        <nav className="flex items-center gap-2.5 overflow-x-auto pb-1 scrollbar-hide">
+        <nav className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
           {[
             { id: 'HOME', label: 'HOME', icon: 'fa-house' },
             { id: 'EDU', label: '정기안전교육', icon: 'fa-graduation-cap' },
@@ -136,7 +125,7 @@ export default function DashboardClient({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4.5 py-2.5 rounded-full text-[13px] font-extrabold transition flex items-center gap-2 shrink-0 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1.5 shrink-0 ${
                 activeTab === tab.id
                   ? 'bg-[#1e88e5] text-white shadow-md shadow-blue-500/25'
                   : 'text-slate-600 hover:bg-slate-200/70 hover:text-slate-900'
