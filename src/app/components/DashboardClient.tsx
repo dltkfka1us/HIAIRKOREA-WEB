@@ -65,65 +65,61 @@ export default function DashboardClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#f2f4f6] p-4 md:p-6 lg:p-8 text-[#191f28] relative font-sans selection:bg-[#3182f6] selection:text-white">
-      <div className="max-w-[1440px] w-full mx-auto space-y-5">
+    <div className="min-h-screen bg-[#f4f6f9] p-3 md:p-5 lg:p-6 text-[#2c3e50] relative">
+      <div className="max-w-[1500px] w-full mx-auto space-y-4">
         
-        {/* Toss Minimal Premium Header */}
-        <header className="bg-white rounded-3xl p-5 md:px-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-          <div className="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6">
-            <div className="flex items-center gap-3.5 shrink-0">
-              <img src="https://i.imgur.com/8wvWwyX.png" alt="Company Logo" className="h-[28px] object-contain" />
-              <div>
-                <h1 className="text-lg font-bold text-[#191f28] tracking-tight flex items-center gap-2">
-                  Safety and Health System
-                </h1>
-                <p className="text-xs font-medium text-[#8b95a1] mt-0.5 lg:hidden">{currentSlogan}</p>
-              </div>
+        {/* Row 0: Original Legacy Header */}
+        <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-1 gap-3 relative">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-5">
+            <div className="flex items-center gap-3 shrink-0">
+              <img src="https://i.imgur.com/8wvWwyX.png" alt="Company Logo" className="h-[34px] object-contain" />
+              <h1 className="text-[1.2rem] font-extrabold text-[#1e293b] tracking-tight">
+                Safety and Health Management System
+              </h1>
             </div>
             
             {/* Separator & Slogan */}
             <div className="hidden lg:flex items-center gap-4">
-              <div className="w-[1px] h-5 bg-[#e5e8eb]"></div>
-              <div className="text-xs font-semibold text-[#6b7684] tracking-tight">
+              <div className="w-[1px] h-4 bg-gray-300"></div>
+              <div className="text-[13px] font-medium text-slate-500 whitespace-nowrap">
                 {currentSlogan}
               </div>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 ml-auto shrink-0">
-            {/* Non-disaster Counter Badge - Toss Style */}
-            <div className="flex items-center gap-2 bg-[#f2f4f6] px-4 py-2 rounded-2xl">
-              <i className="fa-solid fa-shield-halved text-[#3182f6] text-sm"></i>
-              <span className="text-xs font-bold text-[#6b7684]">무재해</span>
-              <div className="flex items-center gap-1 font-mono text-sm font-extrabold text-[#191f28]">
-                <span className="bg-white px-2 py-0.5 rounded-lg shadow-xs border border-[#e5e8eb]">1</span>
-                <span className="bg-white px-2 py-0.5 rounded-lg shadow-xs border border-[#e5e8eb]">9</span>
-                <span className="bg-white px-2 py-0.5 rounded-lg shadow-xs border border-[#e5e8eb]">7</span>
-                <span className="bg-white px-2 py-0.5 rounded-lg shadow-xs border border-[#e5e8eb]">4</span>
+          <div className="flex flex-wrap items-center gap-2.5 ml-auto">
+            {/* Non-Disaster Counter */}
+            <div className="flex items-center gap-1.5 bg-white px-3.5 py-1.5 rounded-xl border border-gray-200/80 shadow-sm">
+              <span className="text-xs font-semibold text-[#64748b]">무재해</span>
+              <div className="flex gap-1 text-sm font-bold font-mono">
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">1</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">9</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">7</span>
+                <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">4</span>
               </div>
-              <span className="text-xs font-bold text-[#191f28]">일</span>
+              <span className="text-xs font-semibold text-[#1e293b]">일</span>
             </div>
 
-            {/* Quick Utility Icon Buttons */}
-            <div className="flex items-center gap-1 bg-[#f2f4f6] p-1 rounded-2xl">
-              <button title="시약 관리" className="p-2 text-[#6b7684] hover:text-[#3182f6] hover:bg-white rounded-xl transition"><i className="fa-solid fa-flask text-sm"></i></button>
-              <button title="일정 관리" className="p-2 text-[#6b7684] hover:text-[#3182f6] hover:bg-white rounded-xl transition"><i className="fa-solid fa-calendar-days text-sm"></i></button>
-              <button title="즐겨찾기" className="p-2 text-[#6b7684] hover:text-[#3182f6] hover:bg-white rounded-xl transition"><i className="fa-solid fa-bookmark text-sm"></i></button>
-              <button onClick={() => openModal('관리자 로그인', '관리자 전용 인증 화면입니다.')} title="관리자 로그인" className="p-2 text-[#6b7684] hover:text-[#3182f6] hover:bg-white rounded-xl transition"><i className="fa-solid fa-key text-sm"></i></button>
+            {/* Utility Icons */}
+            <div className="flex items-center gap-1 text-[#64748b] text-sm bg-white p-1.5 px-2 rounded-xl border border-gray-200/80 shadow-sm">
+              <button title="시약 관리" className="p-1.5 hover:text-[#1e88e5] hover:bg-slate-50 rounded-lg transition"><i className="fa-solid fa-flask text-slate-600 text-sm"></i></button>
+              <button title="일정 관리" className="p-1.5 hover:text-[#1e88e5] hover:bg-slate-50 rounded-lg transition"><i className="fa-solid fa-calendar-days text-slate-600 text-sm"></i></button>
+              <button title="즐겨찾기" className="p-1.5 hover:text-[#1e88e5] hover:bg-slate-50 rounded-lg transition"><i className="fa-solid fa-bookmark text-slate-600 text-base"></i></button>
+              <button onClick={() => openModal('관리자 로그인', '관리자 전용 인증 화면입니다.')} title="관리자 로그인" className="p-1.5 hover:text-[#1e88e5] hover:bg-slate-50 rounded-lg transition"><i className="fa-solid fa-key text-slate-600 text-sm"></i></button>
             </div>
           </div>
         </header>
 
-        {/* Toss Minimal Navigation Bar */}
-        <nav className="bg-white p-2 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex items-center gap-1 overflow-x-auto scrollbar-hide">
+        {/* Row 0.5: Legacy Navigation Bar */}
+        <nav className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
           {[
-            { id: 'HOME', label: '홈', icon: 'fa-house' },
+            { id: 'HOME', label: 'HOME', icon: 'fa-house' },
             { id: 'EDU', label: '정기안전교육', icon: 'fa-graduation-cap' },
             { id: 'TBM', label: 'TBM', icon: 'fa-comments' },
             { id: 'RISK', label: '위험성평가', icon: 'fa-triangle-exclamation' },
             { id: 'LEGAL', label: '법정의무교육', icon: 'fa-gavel' },
             { id: 'STRESS', label: '직무스트레스', icon: 'fa-heart-pulse' },
-            { id: 'AI', label: 'AI 챗봇', icon: 'fa-robot' },
+            { id: 'AI', label: 'AI챗봇', icon: 'fa-robot' },
             { id: 'FACILITY', label: '시설물', icon: 'fa-building' },
             { id: 'EXTERNAL', label: '외부업체', icon: 'fa-handshake' },
             { id: 'DOCS', label: '서식자료', icon: 'fa-folder-open' },
@@ -131,13 +127,13 @@ export default function DashboardClient({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1.5 shrink-0 ${
                 activeTab === tab.id
-                  ? 'bg-[#3182f6] text-white shadow-sm'
-                  : 'text-[#6b7684] hover:bg-[#f2f4f6] hover:text-[#191f28]'
+                  ? 'bg-[#1e88e5] text-white shadow-md shadow-blue-500/25'
+                  : 'text-slate-600 hover:bg-slate-200/70 hover:text-slate-900'
               }`}
             >
-              <i className={`fa-solid ${tab.icon} text-xs opacity-90`}></i>
+              <i className={`fa-solid ${tab.icon} text-xs`}></i>
               {tab.label}
             </button>
           ))}
