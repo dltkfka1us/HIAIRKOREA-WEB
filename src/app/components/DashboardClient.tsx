@@ -65,69 +65,65 @@ export default function DashboardClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] p-4 md:p-6 lg:p-8 text-slate-800 relative font-sans selection:bg-blue-500 selection:text-white">
-      <div className="max-w-[1530px] w-full mx-auto space-y-6">
+    <div className="min-h-screen bg-[#f2f4f6] p-4 md:p-6 lg:p-8 text-[#191f28] relative font-sans selection:bg-[#3182f6] selection:text-white">
+      <div className="max-w-[1440px] w-full mx-auto space-y-5">
         
-        {/* Modern Premium Header */}
-        <header className="bg-white/90 backdrop-blur-md border border-slate-200/80 rounded-3xl p-4 md:px-6 shadow-sm flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 transition hover:shadow-md">
+        {/* Toss Minimal Premium Header */}
+        <header className="bg-white rounded-3xl p-5 md:px-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
           <div className="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6">
             <div className="flex items-center gap-3.5 shrink-0">
-              <div className="p-2 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-2xl shadow-md shadow-blue-500/20 flex items-center justify-center">
-                <img src="https://i.imgur.com/8wvWwyX.png" alt="Company Logo" className="h-[30px] object-contain brightness-0 invert" />
-              </div>
+              <img src="https://i.imgur.com/8wvWwyX.png" alt="Company Logo" className="h-[28px] object-contain" />
               <div>
-                <h1 className="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-                  Safety and Health Management System
-                  <span className="bg-blue-50 text-blue-600 border border-blue-200/80 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">PRO</span>
+                <h1 className="text-lg font-bold text-[#191f28] tracking-tight flex items-center gap-2">
+                  Safety and Health System
                 </h1>
-                <p className="text-xs font-semibold text-slate-400 mt-0.5 lg:hidden">{currentSlogan}</p>
+                <p className="text-xs font-medium text-[#8b95a1] mt-0.5 lg:hidden">{currentSlogan}</p>
               </div>
             </div>
             
             {/* Separator & Slogan */}
-            <div className="hidden lg:flex items-center gap-5">
-              <div className="w-[1px] h-6 bg-slate-200"></div>
-              <div className="text-sm font-semibold text-slate-500 tracking-tight flex items-center gap-2">
-                <i className="fa-solid fa-[#1e88e5] fa-quote-left text-blue-500 text-xs"></i>
-                <span>{currentSlogan}</span>
+            <div className="hidden lg:flex items-center gap-4">
+              <div className="w-[1px] h-5 bg-[#e5e8eb]"></div>
+              <div className="text-xs font-semibold text-[#6b7684] tracking-tight">
+                {currentSlogan}
               </div>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-3 ml-auto shrink-0">
-            {/* Non-disaster Counter Badge */}
-            <div className="flex items-center gap-2.5 bg-slate-900 text-white px-4 py-2 rounded-2xl shadow-md shadow-slate-900/10 border border-slate-800">
-              <i className="fa-solid fa-[#10b981] fa-shield-halved text-emerald-400 text-sm animate-pulse"></i>
-              <span className="text-xs font-bold text-slate-300">무재해</span>
-              <div className="flex items-center gap-1 font-mono text-base font-black tracking-wider text-emerald-400">
-                <span className="bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">1</span>
-                <span className="bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">9</span>
-                <span className="bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">7</span>
-                <span className="bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">4</span>
+            {/* Non-disaster Counter Badge - Toss Style */}
+            <div className="flex items-center gap-2 bg-[#f2f4f6] px-4 py-2 rounded-2xl">
+              <i className="fa-solid fa-shield-halved text-[#3182f6] text-sm"></i>
+              <span className="text-xs font-bold text-[#6b7684]">무재해</span>
+              <div className="flex items-center gap-1 font-mono text-sm font-extrabold text-[#191f28]">
+                <span className="bg-white px-2 py-0.5 rounded-lg shadow-xs border border-[#e5e8eb]">1</span>
+                <span className="bg-white px-2 py-0.5 rounded-lg shadow-xs border border-[#e5e8eb]">9</span>
+                <span className="bg-white px-2 py-0.5 rounded-lg shadow-xs border border-[#e5e8eb]">7</span>
+                <span className="bg-white px-2 py-0.5 rounded-lg shadow-xs border border-[#e5e8eb]">4</span>
               </div>
-              <span className="text-xs font-extrabold text-slate-300">일</span>
+              <span className="text-xs font-bold text-[#191f28]">일</span>
             </div>
 
             {/* Quick Utility Icon Buttons */}
-            <div className="flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/60">
-              <button title="시약 관리" className="p-2 text-slate-600 hover:text-blue-600 hover:bg-white rounded-xl transition shadow-none hover:shadow-sm"><i className="fa-solid fa-flask text-sm"></i></button>
-              <button title="일정 관리" className="p-2 text-slate-600 hover:text-blue-600 hover:bg-white rounded-xl transition shadow-none hover:shadow-sm"><i className="fa-solid fa-calendar-days text-sm"></i></button>
-              <button title="즐겨찾기" className="p-2 text-slate-600 hover:text-blue-600 hover:bg-white rounded-xl transition shadow-none hover:shadow-sm"><i className="fa-solid fa-bookmark text-sm"></i></button>
-              <button onClick={() => openModal('관리자 로그인', '관리자 전용 인증 화면입니다.')} title="관리자 로그인" className="p-2 text-slate-600 hover:text-blue-600 hover:bg-white rounded-xl transition shadow-none hover:shadow-sm"><i className="fa-solid fa-key text-sm"></i></button>
+            <div className="flex items-center gap-1 bg-[#f2f4f6] p-1 rounded-2xl">
+              <button title="시약 관리" className="p-2 text-[#6b7684] hover:text-[#3182f6] hover:bg-white rounded-xl transition"><i className="fa-solid fa-flask text-sm"></i></button>
+              <button title="일정 관리" className="p-2 text-[#6b7684] hover:text-[#3182f6] hover:bg-white rounded-xl transition"><i className="fa-solid fa-calendar-days text-sm"></i></button>
+              <button title="즐겨찾기" className="p-2 text-[#6b7684] hover:text-[#3182f6] hover:bg-white rounded-xl transition"><i className="fa-solid fa-bookmark text-sm"></i></button>
+              <button onClick={() => openModal('관리자 로그인', '관리자 전용 인증 화면입니다.')} title="관리자 로그인" className="p-2 text-[#6b7684] hover:text-[#3182f6] hover:bg-white rounded-xl transition"><i className="fa-solid fa-key text-sm"></i></button>
             </div>
           </div>
         </header>
 
-        {/* Modern Navigation Bar */}
-        <nav className="bg-white/80 backdrop-blur-md p-2 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+        {/* Toss Minimal Navigation Bar */}
+        <nav className="bg-white p-2 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex items-center gap-1 overflow-x-auto scrollbar-hide">
           {[
-            { id: 'HOME', label: 'HOME', icon: 'fa-house' },
+            { id: 'HOME', label: '홈', icon: 'fa-house' },
             { id: 'EDU', label: '정기안전교육', icon: 'fa-graduation-cap' },
             { id: 'TBM', label: 'TBM', icon: 'fa-comments' },
             { id: 'RISK', label: '위험성평가', icon: 'fa-triangle-exclamation' },
             { id: 'LEGAL', label: '법정의무교육', icon: 'fa-gavel' },
             { id: 'STRESS', label: '직무스트레스', icon: 'fa-heart-pulse' },
-            { id: 'AI', label: 'AI챗봇', icon: 'fa-robot' },
+            { id: 'AI', label: 'AI 챗봇', icon: 'fa-robot' },
             { id: 'FACILITY', label: '시설물', icon: 'fa-building' },
             { id: 'EXTERNAL', label: '외부업체', icon: 'fa-handshake' },
             { id: 'DOCS', label: '서식자료', icon: 'fa-folder-open' },
@@ -135,13 +131,13 @@ export default function DashboardClient({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 shrink-0 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 scale-[1.02]'
-                  : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                  ? 'bg-[#3182f6] text-white shadow-sm'
+                  : 'text-[#6b7684] hover:bg-[#f2f4f6] hover:text-[#191f28]'
               }`}
             >
-              <i className={`fa-solid ${tab.icon} text-sm opacity-90`}></i>
+              <i className={`fa-solid ${tab.icon} text-xs opacity-90`}></i>
               {tab.label}
             </button>
           ))}
