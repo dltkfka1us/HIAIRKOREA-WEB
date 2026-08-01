@@ -36,11 +36,13 @@ export default function HomeDash({
         {/* 1. Education Status */}
         <div className="content-card kpi-dashboard-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
           <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-2.5">
-              <i className="fa-solid fa-graduation-cap text-[#3182f6] text-base"></i>
-              <h4 className="font-bold text-[#191f28] m-0 text-base tracking-tight">정기안전교육 현황</h4>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#3182f6] border border-blue-100/80 flex items-center justify-center text-sm shadow-2xs">
+                <i className="fa-solid fa-graduation-cap"></i>
+              </div>
+              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">정기안전교육 현황</h4>
             </div>
-            <span className="text-xs font-semibold text-[#8b95a1] bg-[#f9fafb] px-3 py-1 rounded-full">금월 기준</span>
+            <span className="text-[11px] font-bold text-[#6b7684] bg-[#f2f4f6] px-2.5 py-0.5 rounded-full">금월 기준</span>
           </div>
 
           <div className="home-card-content loaded flex-1 flex flex-col justify-between pt-4" id="home-edu-content">
@@ -92,11 +94,13 @@ export default function HomeDash({
         {/* 2. TBM Status */}
         <div className="content-card kpi-dashboard-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
           <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-2.5">
-              <i className="fa-solid fa-comments text-[#3182f6] text-base"></i>
-              <h4 className="font-bold text-[#191f28] m-0 text-base tracking-tight">TBM 현황</h4>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 border border-purple-100/80 flex items-center justify-center text-sm shadow-2xs">
+                <i className="fa-solid fa-comments"></i>
+              </div>
+              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">TBM 현황</h4>
             </div>
-            <span onClick={() => openModal(notices?.[0]?.title || '공지사항', notices?.[0]?.content || '내용이 없습니다.')} className="cursor-pointer bg-[#e8f3ff] text-[#3182f6] hover:bg-[#d4e8ff] px-3 py-1 rounded-full text-xs font-bold transition flex items-center gap-1.5">
+            <span onClick={() => openModal(notices?.[0]?.title || '공지사항', notices?.[0]?.content || '내용이 없습니다.')} className="cursor-pointer bg-purple-50 text-purple-600 hover:bg-purple-100 border border-purple-200/60 px-2.5 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-2xs">
               <i className="fa-solid fa-bullhorn text-xs"></i> 공지사항
             </span>
           </div>
@@ -150,11 +154,13 @@ export default function HomeDash({
         {/* 3. Legal Status */}
         <div className="content-card kpi-dashboard-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
           <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-2.5">
-              <i className="fa-solid fa-gavel text-[#3182f6] text-base"></i>
-              <h4 className="font-bold text-[#191f28] m-0 text-base tracking-tight">법정의무교육 현황</h4>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100/80 flex items-center justify-center text-sm shadow-2xs">
+                <i className="fa-solid fa-gavel"></i>
+              </div>
+              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">법정의무교육 현황</h4>
             </div>
-            <span className="text-xs font-semibold text-[#8b95a1] bg-[#f9fafb] px-3 py-1 rounded-full">금년 기준</span>
+            <span className="text-[11px] font-bold text-[#6b7684] bg-[#f2f4f6] px-2.5 py-0.5 rounded-full">금년 기준</span>
           </div>
 
           <div className="home-card-content loaded flex flex-col flex-1 overflow-hidden pt-4" id="home-legal-content">
@@ -211,9 +217,11 @@ export default function HomeDash({
         {/* KOSHA News */}
         <div className="content-card list-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
           <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-2.5">
-              <i className="fa-solid fa-triangle-exclamation text-[#f04452] text-base"></i>
-              <h4 className="font-bold text-[#191f28] m-0 text-base tracking-tight">사고 속보</h4>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-rose-50 text-[#f04452] border border-rose-100/80 flex items-center justify-center text-sm shadow-2xs">
+                <i className="fa-solid fa-triangle-exclamation"></i>
+              </div>
+              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">사고 속보</h4>
             </div>
             <span onClick={async () => {
               if (sirenCache) {
@@ -231,7 +239,7 @@ export default function HomeDash({
               } finally {
                 setIsSirenLoading(false);
               }
-            }} className="cursor-pointer text-xs font-bold bg-[#feeef0] text-[#f04452] hover:bg-[#fddbdc] px-3 py-1 rounded-full transition flex items-center gap-1.5">
+            }} className="cursor-pointer text-xs font-bold bg-rose-50 text-[#f04452] hover:bg-rose-100 border border-rose-200/60 px-2.5 py-1 rounded-xl transition flex items-center gap-1.5 shadow-2xs">
               {isSirenLoading ? (
                 <i className="fa-solid fa-spinner fa-spin text-[#f04452]"></i>
               ) : (
@@ -261,9 +269,11 @@ export default function HomeDash({
         {/* Safety News */}
         <div className="content-card list-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
           <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-2.5">
-              <i className="fa-solid fa-newspaper text-[#3182f6] text-base"></i>
-              <h4 className="font-bold text-[#191f28] m-0 text-base tracking-tight">최신 안전 뉴스</h4>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100/80 flex items-center justify-center text-sm shadow-2xs">
+                <i className="fa-solid fa-newspaper"></i>
+              </div>
+              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">최신 안전 뉴스</h4>
             </div>
           </div>
           <div className="scroll-list overflow-y-auto flex-1 divide-y divide-[#f2f4f6] pt-1">
@@ -279,11 +289,16 @@ export default function HomeDash({
         {/* Weather - Toss Style */}
         <div className="content-card weather-card bg-white rounded-3xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] h-[360px] flex flex-col justify-between border-none transition hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
           <div className="card-header-simple pb-3 border-b border-[#f2f4f6] flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-2.5">
-              <i className="fa-solid fa-cloud-sun text-[#ff9500] text-base"></i>
-              <h4 className="font-bold text-[#191f28] m-0 text-base tracking-tight">날씨 정보</h4>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-amber-50 text-[#ff9500] border border-amber-100/80 flex items-center justify-center text-sm shadow-2xs">
+                <i className="fa-solid fa-cloud-sun"></i>
+              </div>
+              <h4 className="font-extrabold text-[#191f28] m-0 text-[15px] tracking-tight">날씨 정보</h4>
             </div>
-            <span className="text-xs font-semibold text-[#8b95a1] bg-[#f9fafb] px-3 py-1 rounded-full">실시간</span>
+            <span className="text-[11px] font-bold text-[#6b7684] bg-[#f2f4f6] px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              실시간
+            </span>
           </div>
           <div className="weather-grid-detailed grid grid-cols-3 divide-x divide-[#f2f4f6] pt-2 flex-1">
             {weatherData?.map((weather: any) => (
