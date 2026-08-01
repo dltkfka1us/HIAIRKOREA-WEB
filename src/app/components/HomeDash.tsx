@@ -246,12 +246,12 @@ export default function HomeDash({
               const locText = item.loc || '전국';
 
               return (
-                <a key={i} href={item.link || '#'} onClick={(e) => { e.preventDefault(); openModal('사고 속보', item.text, item.link, item); }} className="flex justify-between items-center py-3 px-1 hover:bg-[#f9fafb] cursor-pointer transition group">
-                  <span className="font-semibold text-[#333d4b] text-[13px] truncate max-w-[78%] pr-2 group-hover:text-[#3182f6] transition-colors flex items-center gap-1.5">
-                    <span className="bg-[#e8f3ff] text-[#3182f6] font-bold px-1.5 py-0.5 rounded text-[11px] shrink-0">[{locText}]</span>
+                <a key={i} href={item.link || '#'} onClick={(e) => { e.preventDefault(); openModal('사고 속보', item.text, item.link, item); }} className="flex justify-between items-center py-3 px-1 hover:bg-[#f9fafb] cursor-pointer transition group border-b border-[#f2f4f6] last:border-none">
+                  <span className="font-semibold text-[#333d4b] text-[13px] truncate max-w-[80%] pr-2 group-hover:text-[#3182f6] transition-colors">
+                    <span className="text-[#3182f6] font-extrabold mr-1.5">[{locText}]</span>
                     <span className="truncate">{item.text}</span>
                   </span>
-                  <span className="text-[11px] font-bold text-[#f04452] bg-[#feeef0] px-2 py-0.5 rounded-md shrink-0">{tagText}</span>
+                  <span className="text-[13px] font-extrabold text-[#e53e3e] shrink-0">{tagText}</span>
                 </a>
               );
             })}
