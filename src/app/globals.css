@@ -46,6 +46,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+*, *::before, *::after, button, input, select, textarea, span, div, p, h1, h2, h3, h4, h5, h6, a {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif !important;
+}
+
 /* 토스 스타일 카드 */
 .toss-card {
   background: var(--toss-card);

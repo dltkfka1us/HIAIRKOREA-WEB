@@ -89,7 +89,7 @@ export default function DashboardClient({
           <div className="flex flex-wrap items-center gap-3 ml-auto">
             <div className="flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-xl border border-gray-200 shadow-sm">
               <span className="text-xs font-bold text-[#64748b]">무재해</span>
-              <div className="flex gap-1 font-mono text-sm font-extrabold">
+              <div className="flex gap-1 text-sm font-black">
                 <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">1</span>
                 <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">9</span>
                 <span className="bg-[#1e293b] text-white px-2 py-0.5 rounded">7</span>

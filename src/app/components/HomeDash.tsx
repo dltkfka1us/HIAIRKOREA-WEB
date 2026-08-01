@@ -207,7 +207,7 @@ export default function HomeDash({
                   </div>
                   <div className="flex items-center gap-2">
                     <span className={`${officer.isDanger ? 'text-rose-500' : 'text-amber-500'} font-extrabold text-[11px]`}>{officer.dday}</span>
-                    <span className={`text-[10px] border ${officer.isDanger ? 'border-rose-200 bg-rose-50 text-rose-600' : 'border-amber-200 bg-amber-50 text-amber-600'} px-1.5 py-0.5 rounded font-mono`}>{officer.date}</span>
+                    <span className={`text-[10px] border ${officer.isDanger ? 'border-rose-200 bg-rose-50 text-rose-600' : 'border-amber-200 bg-amber-50 text-amber-600'} px-1.5 py-0.5 rounded font-bold`}>{officer.date}</span>
                   </div>
                 </div>
               ))}
